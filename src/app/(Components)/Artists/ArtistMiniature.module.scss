@@ -1,0 +1,44 @@
+@use "../../variables";
+
+.miniature {
+	width: 100%;
+	height: fit-content;
+}
+
+.portrait {
+	width: 100%;
+	position: relative;
+
+	.image {
+		width: 100%;
+		height: 100%;
+		height: auto;
+		display: block;
+	}
+}
+
+.portrait::before {
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+
+.info {
+	gap: 7px;
+	display: flex;
+	min-height: 88px;
+	flex-direction: column;
+	padding: 10px 5px 10px 5px;
+
+	& > h1 {
+		line-height: 1;
+		color: variables.$primary_text;
+		font-size: clamp(0.9rem, 1.45vw, 1.45vw);
+	}
+
+	& > h3 {
+		line-height: 1;
+		color: #35291d;
+		font-size: clamp(0.8rem, 1.35vw, 1.35vw);
+	}
+}
