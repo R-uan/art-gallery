@@ -1,0 +1,46 @@
+.era {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+	border-radius: 2px;
+
+	.image {
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-position: 50%;
+	}
+
+	& div {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		bottom: -100%;
+		position: absolute;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+		background-color: rgba(0, 0, 0, 0.5);
+		transition: bottom ease-in-out 0.2s;
+
+		& > span:first-child {
+			color: #decfd3;
+			line-height: 1;
+			font-size: 2.5rem;
+		}
+
+		& > span:last-child {
+			color: #decfd3;
+			line-height: 1;
+			font-size: 1.75rem;
+		}
+	}
+}
+
+.era:hover {
+	& div {
+		bottom: 0;
+		transition: bottom ease-in-out 0.2s;
+	}
+}
