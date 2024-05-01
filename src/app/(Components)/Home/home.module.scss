@@ -1,0 +1,101 @@
+@use "../../variables";
+
+.body {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	background-color: #eeede0;
+}
+
+.main {
+	width: 100%;
+	min-height: 85vh;
+}
+
+.landing_box {
+	width: 100%;
+	height: 98vh;
+	display: flex;
+	align-items: flex-end;
+	position: relative;
+	background-size: cover;
+	justify-content: center;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/assets/home-background.jpg");
+
+	& > span {
+		line-height: 1;
+		font-size: 13rem;
+		color: variables.$white;
+	}
+}
+
+.content_box {
+	width: 100%;
+	min-height: 100vh;
+	padding: 40px 80px 40px 80px;
+}
+
+.featured_artists {
+	width: 100%;
+	padding: 5px;
+	display: grid;
+	height: fit-content;
+	justify-content: space-between;
+	grid-template-columns: repeat(4, 24%);
+	outline: 1px solid variables.$primary_text;
+}
+
+.featured_eras {
+	width: 100%;
+	height: fit-content;
+	margin: 50px 0 50px 0;
+
+	.options {
+		gap: 5px;
+		width: 100%;
+		display: grid;
+		height: fit-content;
+		grid-template-rows: 33.8vw;
+		justify-content: space-between;
+		grid-template-columns: repeat(4, 24%);
+	}
+}
+
+.bigtext {
+	// FIXME: WHATEVER THIS IS
+	@apply font-bebas;
+	color: variables.$primary_text;
+	font-size: clamp(1.25rem, 2vw, 2vw);
+}
+
+.eras {
+	width: 100%;
+	margin-top: 50px;
+	position: relative;
+
+	& > ul {
+		width: 100%;
+		display: grid;
+		row-gap: 10px;
+		position: relative;
+		justify-content: space-between;
+		grid-template-columns: repeat(6, 16%);
+
+		& li {
+			width: 100%;
+			line-height: 1;
+			padding: 10px 20px;
+			text-align: center;
+			border-radius: 2px;
+			outline: 1px solid black;
+			background-color: #35291d;
+			color: variables.$white;
+			font-size: clamp(0.8rem, 1.4vw, 1.4vw);
+		}
+
+		& li:hover {
+			background-color: #423324;
+		}
+	}
+}
