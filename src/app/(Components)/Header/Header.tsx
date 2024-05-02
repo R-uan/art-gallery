@@ -1,6 +1,7 @@
 "use client";
 import { Suspense } from "react";
 import { HeaderStyled } from "./HeaderStyled";
+import Link from "next/link";
 
 export default function Header({ transparent }: { transparent: boolean }) {
 	return (
@@ -9,21 +10,21 @@ export default function Header({ transparent }: { transparent: boolean }) {
 				<div></div>
 				<nav>
 					<ul>
-						<a href="">
+						<Link href="/">
 							<li>Home</li>
-						</a>
-						<a href="">
+						</Link>
+						<Link href="">
 							<li>Artists</li>
-						</a>
-						<a href="">
+						</Link>
+						<Link href="/gallery">
 							<li>Gallery</li>
-						</a>
-						<a href="">
+						</Link>
+						<Link href="">
 							<li>Museums</li>
-						</a>
-						<a href="">
+						</Link>
+						<Link href="">
 							<li>About</li>
-						</a>
+						</Link>
 					</ul>
 				</nav>
 			</HeaderStyled>
