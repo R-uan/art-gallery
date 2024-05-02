@@ -15,14 +15,16 @@ export default function Home() {
 					<span>SOMETHING GOES HERE</span>
 				</div>
 				<div className={s.content_box}>
-					<div>
-						<span className={s.bigtext}>FEATURED ARTISTS</span>
-					</div>
 					<div className={s.featured_artists}>
-						<ArtistMiniature />
-						<ArtistMiniature />
-						<ArtistMiniature />
-						<ArtistMiniature />
+						<div>
+							<span className={s.bigtext}>FEATURED ARTISTS</span>
+						</div>
+						<div className={s.artists}>
+							<ArtistMiniature />
+							<ArtistMiniature />
+							<ArtistMiniature />
+							<ArtistMiniature />
+						</div>
 					</div>
 					<div className={s.featured_eras}>
 						<div>
