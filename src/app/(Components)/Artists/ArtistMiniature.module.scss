@@ -32,13 +32,13 @@
 
 	& > h1 {
 		line-height: 1;
-		color: variables.$primary_text;
+		color: variables.$text_black;
 		font-size: clamp(0.9rem, 1.45vw, 1.45vw);
 	}
 
 	& > h3 {
 		line-height: 1;
-		color: #35291d;
+		color: #c65c2f;
 		font-size: clamp(0.8rem, 1.35vw, 1.35vw);
 	}
 }
