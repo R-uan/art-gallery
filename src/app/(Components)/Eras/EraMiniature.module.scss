@@ -1,6 +1,8 @@
+@use "../../variables";
+
 .era {
 	width: 100%;
-	height: 100%;
+	aspect-ratio: 2 / 3;
 	overflow: hidden;
 	position: relative;
 	border-radius: 2px;
@@ -25,15 +27,15 @@
 		transition: bottom ease-in-out 0.2s;
 
 		& > span:first-child {
-			color: #decfd3;
 			line-height: 1;
 			font-size: 2.5rem;
+			color: variables.$text_white;
 		}
 
 		& > span:last-child {
-			color: #decfd3;
 			line-height: 1;
 			font-size: 1.75rem;
+			color: variables.$text_white;
 		}
 	}
 }
