@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import s from "./EraMiniature.module.scss";
-import { Era } from "@/app/Eras";
+import { Era } from "@/app/(Components)/Home/Eras";
 export default function EraMiniature({ era }: { era: Era }) {
 	return (
 		<div className={s.era}>

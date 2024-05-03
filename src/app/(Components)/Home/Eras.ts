@@ -26,8 +26,8 @@ export interface Era {
 }
 
 export const featured_eras: Era[] = [
-	{ name: "Renaissence", period: [1300, 1600], cover: "/assets/renaissence.jpg" },
-	{ name: "Rococo", period: [1700, 1800], cover: "/assets/rococo.jpg" },
-	{ name: "Romanticism", period: [1770, 1850], cover: "/assets/romanticism.jpg" },
-	{ name: "Impressionism", period: [1860, 1880], cover: "/assets/impressionism.jpg" },
+	{ name: "Renaissence", period: [1300, 1600], cover: "/assets/home/the-period/renaissence.jpg" },
+	{ name: "Rococo", period: [1700, 1800], cover: "/assets/home/the-period/rococo.jpg" },
+	{ name: "Romanticism", period: [1770, 1850], cover: "/assets/home/the-period/romanticism.jpg" },
+	{ name: "Impressionism", period: [1860, 1880], cover: "/assets/home/the-period/impressionism.jpg" },
 ];
