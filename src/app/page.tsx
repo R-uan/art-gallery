@@ -12,7 +12,7 @@ import ArtistMiniature from "./(Components)/Artists/ArtistMiniature";
 export default function Home() {
 	return (
 		<body className={s.body}>
-			<Header transparent={true} />
+			<Header transparent={true} position="absolute" />
 			<main className={s.main}>
 				<div className={s.landing}>
 					<span>SOMETHING GOES HERE</span>

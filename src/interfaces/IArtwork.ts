@@ -1,5 +1,5 @@
 import { IPartialArtist } from "./IArtist";
-import { IPartialMuseum } from "./IMuseum";
+import IMuseum, { IPartialMuseum } from "./IMuseum";
 
 export interface IArtwork {
 	slug: string;
@@ -7,7 +7,7 @@ export interface IArtwork {
 	artist: IPartialArtist;
 	alternative_title: string | null;
 	year: number;
-	museum: IPartialMuseum;
+	museum: IMuseum;
 	description: string;
 }
 

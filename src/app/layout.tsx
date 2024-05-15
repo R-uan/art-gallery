@@ -1,6 +1,7 @@
 import { Amiri, Bebas_Neue, JetBrains_Mono, Smooch_Sans } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
+import React from "react";
 
 const Smooch = Smooch_Sans({
 	subsets: ["latin"],

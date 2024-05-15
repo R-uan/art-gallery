@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const HeaderStyled = styled.header<{ $transparent?: boolean }>`
+export const HeaderStyled = styled.header<{ $transparent?: boolean; $position?: string }>`
 	top: 0;
 	width: 100%;
 	z-index: 101;
 	height: 12vh;
 	display: flex;
-	position: ${(props) => (props.$transparent ? "absolute" : "sticky")};
+	position: ${(props) => (props.$position ? props.$position : "relative")};
 	align-items: center;
 	padding: 0 80px 0 80px;
 	justify-content: space-between;

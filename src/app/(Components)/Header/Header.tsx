@@ -3,10 +3,10 @@ import { Suspense } from "react";
 import { HeaderStyled } from "./HeaderStyled";
 import Link from "next/link";
 
-export default function Header({ transparent }: { transparent: boolean }) {
+export default function Header({ transparent, position }: { transparent: boolean; position?: string }) {
 	return (
 		<Suspense fallback={<div className="w-full absolute"></div>}>
-			<HeaderStyled $transparent={transparent}>
+			<HeaderStyled $transparent={transparent} $position={position}>
 				<div></div>
 				<nav>
 					<ul>

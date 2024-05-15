@@ -5,13 +5,13 @@ import Footer from "../(Components)/Footer/Footer";
 import Exposition from "./_components/Exposition/Exposition";
 export default function Gallery() {
 	return (
-		<body>
-			<Header transparent={false} />
+		<>
+			<Header transparent={false} position="sticky" />
 			<main className={s.gallery}>
 				<ArtworkFilter />
 				<Exposition />
 			</main>
 			<Footer />
-		</body>
+		</>
 	);
 }
