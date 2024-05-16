@@ -1,0 +1,45 @@
+.location {
+	gap: 10px;
+	width: 100%;
+	display: flex;
+	height: fit-content;
+	flex-direction: column;
+
+	& > div:first-child {
+		span {
+			font-size: 2rem;
+		}
+	}
+
+	.address {
+		gap: 5px;
+		width: 100%;
+		display: flex;
+		padding: 10px;
+		justify-content: space-around;
+
+		div {
+			text-align: center;
+			margin: 5px;
+			& > span:first-child {
+				display: block;
+				line-height: 1;
+				font-size: 1.5rem;
+			}
+
+			& > span:last-child {
+				line-height: 1;
+				display: block;
+				font-size: 1.2rem;
+			}
+		}
+	}
+
+	.map {
+		height: 30vw;
+		& > iframe {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
