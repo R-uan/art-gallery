@@ -25,7 +25,9 @@ export default function ArtworkOverview({ slug }: { slug: string }) {
 	}, [isFetching, isError, data]);
 	return (
 		<div className={s.artwork}>
-			<div className={s.image}></div>
+			<div className={s.image}>
+				<img src={data?.imageURL} alt="" />
+			</div>
 			<div className={s.right_panel}>
 				{isFetching ? (
 					<LoadingArtwork />
@@ -62,7 +64,7 @@ export default function ArtworkOverview({ slug }: { slug: string }) {
 							</p>
 						</div>
 						<div>
-							<span className={s.period}>Renaissence</span>
+							<span className={s.period}>{data?.period}</span>
 							<span>-</span>
 							<span className={s.year}>{data?.year}</span>
 						</div>
