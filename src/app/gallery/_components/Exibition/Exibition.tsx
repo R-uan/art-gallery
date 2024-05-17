@@ -1,7 +1,35 @@
-import s from "./Exposition.module.scss";
-export default function Exposition() {
+"use client";
+import { useDispatch, useSelector } from "react-redux";
+import s from "./Exibition.module.scss";
+import { RootState } from "../../_contexts/ExibitionStore";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import ArtworkRequest from "@/scripts/ArtworkRequest";
+import { useEffect } from "react";
+
+export default function Exibition() {
+	const exibition = useSelector((s: RootState) => s.artworks);
+	const client = useQueryClient();
+	const state = useDispatch();
+
+	const query = useQuery({ queryKey: ["artworks"], queryFn: async () => ArtworkRequest.GetPartialArtworks() });
 	return (
 		<div className={s.exposition}>
+			{query.data?.map((art) => {
+				return (
+					<div className={s.img_box}>
+						<img alt={art.name} src={art.imageURL} />
+						<div className={s.info}>
+							<div>
+								<span>nothing</span>
+							</div>
+							<div>
+								<h1>{art.name}</h1>
+								<h3>{art.artist}</h3>
+							</div>
+						</div>
+					</div>
+				);
+			})}
 			<div className={s.img_box}>
 				<img alt="" src={"/assets/gallery-test/@gallery-test[1].jpg"} />
 				<div className={s.info}>
@@ -14,9 +42,7 @@ export default function Exposition() {
 					</div>
 				</div>
 			</div>
-			<div className={s.img_box}>
-				<img alt="" src={"/assets/gallery-test/@gallery-test[2].jpg"} />
-			</div>
+			<div className={s.img_box}></div>
 			<div className={s.img_box}>
 				<img alt="" src={"/assets/gallery-test/@gallery-test[3].jpg"} />
 			</div>
