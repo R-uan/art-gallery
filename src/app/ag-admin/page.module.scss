@@ -1,0 +1,100 @@
+.body {
+	width: 100%;
+	height: 100vh;
+	position: relative;
+	background-color: #0d1f23;
+
+	.main {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		color: white;
+		align-items: center;
+		justify-content: center;
+
+		.big_image {
+			width: 75vw;
+			height: 100%;
+			background-size: cover;
+			background-color: black;
+			border: 1px solid #29304b;
+			border-left: none;
+			background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+				url("/assets/ag-admin/background.jpeg");
+		}
+
+		.login {
+			width: 25vw;
+			height: 100%;
+			border: 1px solid #29304b;
+			border-right: none;
+
+			& > form {
+				gap: 15px;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				position: relative;
+				align-items: center;
+				flex-direction: column;
+				justify-content: center;
+
+				.input_fields {
+					gap: 10px;
+					width: 70%;
+					display: flex;
+					flex-direction: column;
+
+					input {
+						width: 100%;
+						height: 40px;
+						font-size: 1.25rem;
+						color: white;
+						padding-left: 7px;
+						border-radius: 3px;
+						border: 1px solid #2d4a53;
+						background-color: #132e35;
+					}
+				}
+
+				.submit {
+					width: 70%;
+					padding: 4px;
+					height: 40px;
+					border-radius: 3px;
+					background-color: #dbd8d0;
+					button {
+						font-weight: bold;
+						font-size: 1.3rem;
+						color: #29304b;
+						height: 100%;
+						width: 100%;
+					}
+				}
+				.submit:hover {
+					background-color: #f6f5f3;
+				}
+
+				.other {
+					bottom: 0;
+					width: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					position: absolute;
+					background-color: #e5e7e6;
+
+					button {
+						width: 50%;
+						color: black;
+						font-size: 1.32rem;
+					}
+
+					button:hover {
+						color: #7f8f6e;
+					}
+				}
+			}
+		}
+	}
+}
