@@ -6,7 +6,7 @@ export default function ArtworkFilter() {
 	return (
 		<div className={s.filter}>
 			<form action="get">
-				<div className={s.periods}>
+				<div className={s.options}>
 					<select name="periods" id="periods">
 						<option value="all">All Periods</option>
 						{eras.map((era) => {
@@ -18,8 +18,14 @@ export default function ArtworkFilter() {
 						})}
 					</select>
 				</div>
+				<div className={s.options}>
+					<select name="periods" id="periods">
+						<option value="title">Title</option>
+						<option value="author">Author</option>
+					</select>
+				</div>
 				<div className={s.search}>
-					<input type="text" placeholder="Search an Art Piece" />
+					<input type="text" placeholder="Search an Artwork Title/Author" />
 					<button type="submit">
 						<IoSearchSharp className={s.search_icon} />
 					</button>

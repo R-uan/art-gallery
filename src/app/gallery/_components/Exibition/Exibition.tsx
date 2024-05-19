@@ -1,7 +1,7 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./Exibition.module.scss";
-import { RootState } from "../../_contexts/ExibitionStore";
+import { RootState, setArtworks } from "../../_contexts/ExibitionStore";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ArtworkRequest from "@/scripts/ArtworkRequest";
 import { useEffect } from "react";
@@ -10,8 +10,10 @@ export default function Exibition() {
 	const exibition = useSelector((s: RootState) => s.artworks);
 	const client = useQueryClient();
 	const state = useDispatch();
-
 	const query = useQuery({ queryKey: ["artworks"], queryFn: async () => ArtworkRequest.GetPartialArtworks() });
+	async function Query() {
+		const data = await ArtworkRequest.GetPartialArtworks();
+	}
 	return (
 		<div className={s.exposition}>
 			{query.data?.map((art) => {

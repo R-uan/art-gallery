@@ -1,11 +1,10 @@
 "use client";
-import { SubmitHandler, useForm } from "react-hook-form";
-import s from "./page.module.scss";
 import AuthenticationRequest from "@/scripts/AuthenticationRequest";
-import MessageBox, { Status } from "./MessageBox";
-import { useState } from "react";
-import { AxiosError } from "axios";
 import UnauthorizedError from "@/scripts/UnauthorizedError";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import MessageBox, { Status } from "./MessageBox";
+import s from "./page.module.scss";
 type Inputs = { username: string; password: string };
 export default function AdminPanel() {
 	const { register, handleSubmit } = useForm<Inputs>();
