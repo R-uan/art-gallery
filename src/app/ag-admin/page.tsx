@@ -2,17 +2,39 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import s from "./page.module.scss";
 import AuthenticationRequest from "@/scripts/AuthenticationRequest";
+import MessageBox, { Status } from "./MessageBox";
+import { useState } from "react";
+import { AxiosError } from "axios";
+import UnauthorizedError from "@/scripts/UnauthorizedError";
 type Inputs = { username: string; password: string };
 export default function AdminPanel() {
 	const { register, handleSubmit } = useForm<Inputs>();
+	const [message, setMessage] = useState<string>("Provide credentials");
+	const [status, setStatus] = useState<Status>(Status.Neutral);
+
 	async function Submit(data: Inputs) {
-		AuthenticationRequest.Authenticate(data.username, data.password);
+		try {
+			const authenticated = await AuthenticationRequest.Authenticate(data.username, data.password);
+			if (authenticated == true) {
+				setStatus(Status.Success);
+				setMessage("Login Successful.");
+			}
+		} catch (error) {
+			if (error instanceof UnauthorizedError) {
+				setMessage(error.message);
+				setStatus(Status.Warning);
+			} else if (error instanceof Error) {
+				setMessage(error.message);
+				setStatus(Status.Error);
+			}
+		}
 	}
 	return (
 		<body className={s.body}>
 			<main className={s.main}>
 				<div className={s.login}>
 					<form action="POST" onSubmit={handleSubmit(Submit)}>
+						<MessageBox message={message} status={status} />
 						<div className={s.input_fields}>
 							<input {...register("username")} type="text" name="username" placeholder="Username" required />
 							<input
