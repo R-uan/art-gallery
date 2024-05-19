@@ -5,15 +5,16 @@ export interface IArtwork {
 	slug: string;
 	title: string;
 	artist: IPartialArtist;
-	alternative_title: string | null;
 	year: number;
 	museum: IMuseum;
-	description: string;
+	history: string;
+	period: string | null;
+	imageURL: string;
 }
 
 export interface IPartialArtwork {
-	title: string;
-	artist: IPartialArtist;
 	slug: string;
-	year: number;
+	name: string;
+	artist: string;
+	imageURL: string;
 }
