@@ -1,0 +1,94 @@
+.body {
+	background-color: #e1d5bc;
+	min-height: 100vh;
+
+	& > main {
+		height: 100vh;
+		display: flex;
+	}
+}
+
+.menu {
+	gap: 50px;
+	height: 100%;
+	width: 250px;
+	display: flex;
+	flex-direction: column;
+	background-color: #0d1f23;
+
+	.logo {
+		width: 100%;
+		height: 100px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #0d1f23;
+	}
+
+	nav {
+		padding: 6px;
+		width: 100%;
+		.menu_options {
+			gap: 10px;
+			width: 100%;
+			display: flex;
+			padding: 25px 25px;
+			height: fit-content;
+			flex-direction: column;
+			outline: 2px solid red;
+
+			li {
+				width: fit-content;
+				color: #e1d5bc;
+				font-size: 1.5rem;
+				transition: transform ease-in-out 0.2s;
+			}
+
+			button:hover {
+				li {
+					transform: scale(1.2);
+					transition: transform ease-in-out 0.2s;
+				}
+			}
+		}
+	}
+}
+
+.dashboard {
+	gap: 10px;
+	flex: 1 1 0%;
+	display: flex;
+	padding-top: 20px;
+	flex-direction: column;
+
+	& > div:first-child {
+		width: 100%;
+		text-align: center;
+		& > span {
+			font-size: 2rem;
+		}
+	}
+
+	.filter {
+		width: 100%;
+		height: 70px;
+		margin-top: 20px;
+	}
+
+	.exibit {
+		margin: 0;
+		flex: 1 1 0%;
+		padding: 5px;
+		display: flex;
+		overflow-y: auto;
+		position: relative;
+		flex-direction: column;
+		background-color: rgba(0, 0, 0, 0.1);
+
+		& > div {
+			gap: 10px;
+			display: grid;
+			grid-template-columns: repeat(6, 1fr);
+		}
+	}
+}
