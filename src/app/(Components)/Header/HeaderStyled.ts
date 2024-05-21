@@ -4,13 +4,14 @@ export const HeaderStyled = styled.header<{ $transparent?: boolean; $position?: 
 	top: 0;
 	width: 100%;
 	z-index: 101;
-	height: 12vh;
+	height: 10vh;
 	display: flex;
 	position: ${(props) => (props.$position ? props.$position : "relative")};
 	align-items: center;
 	padding: 0 80px 0 80px;
 	justify-content: space-between;
-	background-color: ${(props) => (props.$transparent ? "transparent" : "#0D090A")};
+	background-color: transparent;
+	box-shadow: 0px 1px 10px 0px rgba(230, 217, 208, 0.3);
 
 	& > nav {
 		display: flex;

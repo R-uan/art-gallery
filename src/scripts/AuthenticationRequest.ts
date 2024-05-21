@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig } from "axios";
 import public_instance from "./PublicInstance";
 import Cookies from "js-cookie";
 import UnauthorizedError from "./UnauthorizedError";
@@ -6,7 +6,8 @@ export default class AuthenticationRequest {
 	public static async Authenticate(username: string, password: string) {
 		try {
 			const request_body = { username, password };
-			const request = await public_instance.post("/auth", request_body);
+			const config: AxiosRequestConfig = { headers: { Authorization: `Basic ${username}:${password}` } };
+			const request = await public_instance.get("/auth");
 			if (request.data != null) {
 				Cookies.set("auth", request.data);
 				return true;
