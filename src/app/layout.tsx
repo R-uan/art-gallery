@@ -2,7 +2,7 @@ import { Amiri, Bebas_Neue, JetBrains_Mono, Smooch_Sans } from "next/font/google
 import type { Metadata } from "next";
 import "./globals.css";
 import React from "react";
-
+import s from "./home.module.scss";
 const Smooch = Smooch_Sans({
 	subsets: ["latin"],
 	display: "swap",
@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className={`${Smooch.variable} ${Bebas.variable} ${JetBrains.variable} ${Amire.variable}`}>
-			{children}
+			<body className={s.body}>{children}</body>
 		</html>
 	);
 }

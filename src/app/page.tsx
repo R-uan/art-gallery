@@ -5,13 +5,13 @@ import { artists } from "./(Components)/Home/Artists";
 import { eras, featured_eras } from "./(Components)/Home/Eras";
 import Footer from "./(Components)/Footer/Footer";
 import Header from "./(Components)/Header/Header";
-import s from "@/app/(Components)/Home/home.module.scss";
+import s from "./home.module.scss";
 import EraMiniature from "./(Components)/Eras/EraMiniature";
 import ArtistMiniature from "./(Components)/Artists/ArtistMiniature";
 
 export default function Home() {
 	return (
-		<body className={s.body}>
+		<>
 			<Header transparent={true} position="absolute" />
 			<main className={s.main}>
 				<div className={s.landing}>
@@ -119,6 +119,6 @@ export default function Home() {
 				</div>
 			</main>
 			<Footer />
-		</body>
+		</>
 	);
 }
