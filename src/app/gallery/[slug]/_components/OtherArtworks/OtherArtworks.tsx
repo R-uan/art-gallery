@@ -4,14 +4,16 @@ export default function OtherArtworks() {
 	return (
 		<div className={s.other_artworks}>
 			<div>
-				<span className="font-bebas">Other Artworks</span>
-			</div>
-			<div>
+				<div>
+					<span className="font-bebas">Other Artworks</span>
+				</div>
+				<div>
+					{/* <Artwork />
 				<Artwork />
 				<Artwork />
 				<Artwork />
-				<Artwork />
-				<Artwork />
+				<Artwork /> */}
+				</div>
 			</div>
 		</div>
 	);

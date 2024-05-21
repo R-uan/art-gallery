@@ -14,7 +14,7 @@ export default function Artwork({ params }: { params: { slug: string } }) {
 		<QueryClientProvider client={client}>
 			<ArtworkProvider>
 				<Header transparent={false} />
-				<main className={s.selected_artwork}>
+				<main className={s.artwork}>
 					<div>
 						<ArtworkOverview slug={params.slug} />
 						<ArtworkLocation />

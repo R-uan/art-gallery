@@ -1,17 +1,29 @@
 .other_artworks {
 	width: 100%;
+	justify-content: center;
+	display: flex;
 	height: fit-content;
+	background-color: #efefe9;
 
-	& > div:first-child {
-		span {
-			font-size: 2rem;
-			line-height: 1.3;
+	& > div {
+		* {
+			color: #0b1314;
 		}
-	}
+		width: 80%;
+		padding: 50px 0px;
+		height: fit-content;
 
-	& > div:last-child {
-		display: grid;
-		justify-content: space-between;
-		grid-template-columns: repeat(5, 19%);
+		& > div:first-child {
+			span {
+				font-size: 2rem;
+				line-height: 1.3;
+			}
+		}
+
+		& > div:last-child {
+			display: grid;
+			justify-content: space-between;
+			grid-template-columns: repeat(5, 19%);
+		}
 	}
 }
