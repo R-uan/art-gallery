@@ -1,15 +1,18 @@
 import s from "./Artwork.module.scss";
-export default function Artwork() {
+import { useRouter } from "next/navigation";
+import { IPartialArtwork } from "@/interfaces/IArtwork";
+export default function Artwork({ artwork }: { artwork: IPartialArtwork }) {
+	const router = useRouter();
 	return (
-		<div className={s.img_box}>
-			<img alt="" src={"/assets/gallery-test/@gallery-test[1].jpg"} />
+		<div className={s.img_box} onClick={() => router.push(`/gallery/${artwork.slug}`)}>
+			<img alt={artwork.name} src={artwork.imageURL} />
 			<div className={s.info}>
 				<div>
 					<span>Year</span>
 				</div>
 				<div>
-					<h1>Title</h1>
-					<h3>Author</h3>
+					<h1>{artwork.name}</h1>
+					<h3>{artwork.artist}</h3>
 				</div>
 			</div>
 		</div>
