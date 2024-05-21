@@ -29,31 +29,23 @@ export default function AdminPanel() {
 		}
 	}
 	return (
-		<body className={s.body}>
-			<main className={s.main}>
-				<div className={s.login}>
-					<form action="POST" onSubmit={handleSubmit(Submit)}>
-						<MessageBox message={message} status={status} />
-						<div className={s.input_fields}>
-							<input {...register("username")} type="text" name="username" placeholder="Username" required />
-							<input
-								{...register("password")}
-								type="password"
-								name="password"
-								placeholder="Password"
-								required
-							/>
-						</div>
-						<div className={s.other}>
-							<button>Sign in as Guest</button>
-						</div>
-						<div className={s.submit}>
-							<button type="submit">Login</button>
-						</div>
-					</form>
-				</div>
-				<div className={s.big_image}></div>
-			</main>
-		</body>
+		<main className={s.main}>
+			<div className={s.login}>
+				<form action="POST" onSubmit={handleSubmit(Submit)}>
+					<MessageBox message={message} status={status} />
+					<div className={s.input_fields}>
+						<input {...register("username")} type="text" name="username" placeholder="Username" required />
+						<input {...register("password")} type="password" name="password" placeholder="Password" required />
+					</div>
+					<div className={s.other}>
+						<button>Sign in as Guest</button>
+					</div>
+					<div className={s.submit}>
+						<button type="submit">Login</button>
+					</div>
+				</form>
+			</div>
+			<div className={s.big_image}></div>
+		</main>
 	);
 }
