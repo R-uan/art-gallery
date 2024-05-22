@@ -1,0 +1,42 @@
+.header {
+	width: 100%;
+	height: 100px;
+	display: flex;
+	padding: 0px 50px;
+	align-items: center;
+	justify-content: space-between;
+
+	& > div:first-child {
+		span {
+			color: #fafafa;
+			line-height: 1;
+			font-size: 2rem;
+		}
+	}
+
+	& > div:nth-child(2) {
+		ul {
+			gap: 20px;
+			display: flex;
+			li {
+				color: #fafafa;
+				line-height: 1;
+				font-size: 1.75rem;
+			}
+		}
+	}
+
+	& > div:last-child {
+		button {
+			padding: 5px 0;
+			border-radius: 3px;
+			width: calc(100% + 20px);
+			background-color: #ff003c;
+			span {
+				line-height: 1;
+				color: #fafafa;
+				font-size: 1.5rem;
+			}
+		}
+	}
+}

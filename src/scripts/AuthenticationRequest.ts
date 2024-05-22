@@ -5,9 +5,9 @@ import UnauthorizedError from "./UnauthorizedError";
 export default class AuthenticationRequest {
 	public static async Authenticate(username: string, password: string) {
 		try {
-			const request_body = { username, password };
-			const config: AxiosRequestConfig = { headers: { Authorization: `Basic ${username}:${password}` } };
-			const request = await public_instance.get("/auth");
+			const credentials = btoa(`${username}:${password}`);
+			const config: AxiosRequestConfig = { headers: { Authorization: `Basic ${credentials}` } };
+			const request = await public_instance.get("/auth", config);
 			if (request.data != null) {
 				Cookies.set("auth", request.data);
 				return true;
@@ -16,10 +16,8 @@ export default class AuthenticationRequest {
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				if (error.status == 401) throw new UnauthorizedError("Incorrect credentials.", 401);
-				console.log(error);
 				throw Error("Unexpected Error");
 			}
-			console.log(error);
 			throw Error("Unexpected Error");
 		}
 	}

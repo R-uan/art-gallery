@@ -1,8 +1,9 @@
-import { useArtworkContext } from "../../_context/ArtworkProvider";
+import { useSelector } from "react-redux";
 import s from "./ArtworkLocation.module.scss";
+import { RootState } from "@/app/_contexts/ArtworkStore";
 export default function ArtworkLocation() {
-	const artwork_context = useArtworkContext();
-	const address = artwork_context.artwork?.museum;
+	const { artwork } = useSelector((s: RootState) => s.artworkFocus);
+	const address = artwork?.museum;
 	return (
 		<div className={s.location}>
 			<div>

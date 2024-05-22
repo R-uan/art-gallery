@@ -1,14 +1,15 @@
-import { useEffect } from "react";
-import { FaFacebook } from "react-icons/fa";
-import s from "./ArtworkOverview.module.scss";
+import { setArtwork, setError, setFetching } from "@/app/_contexts/ArtworkFocusSlice";
 import ArtworkRequest from "@/scripts/ArtworkRequest";
-import { BsInstagram, BsTwitter } from "react-icons/bs";
-import { useArtworkContext } from "../../_context/ArtworkProvider";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import LoadingArtwork from "../LoadingArtwork";
+import { useEffect } from "react";
+import { BsInstagram, BsTwitter } from "react-icons/bs";
+import { FaFacebook } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import FailedToFetch from "../ErrorArtwork";
+import LoadingArtwork from "../LoadingArtwork";
+import s from "./ArtworkOverview.module.scss";
 export default function ArtworkOverview({ slug }: { slug: string }) {
-	const artwork_context = useArtworkContext();
+	const setState = useDispatch();
 	const query_client = useQueryClient();
 	const { data, isFetching, isError, error } = useQuery({
 		retry: false,
@@ -19,10 +20,9 @@ export default function ArtworkOverview({ slug }: { slug: string }) {
 	});
 
 	useEffect(() => {
-		if (isFetching) artwork_context.setFetching(isFetching);
-		if (isError) artwork_context.setError(isError);
-		if (data) artwork_context.setArtwork(data);
-		console.log(data);
+		if (isFetching) setState(setFetching(isFetching));
+		if (isError) setState(setError(isError));
+		if (data) setState(setArtwork(data));
 	}, [isFetching, isError, data]);
 
 	return (

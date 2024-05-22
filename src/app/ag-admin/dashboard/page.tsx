@@ -1,60 +1,26 @@
-import ArtworkFilter from "@/app/gallery/_components/Filter/ArtworkFilter";
-import s from "./page.module.scss";
-import AdminArtwork from "./AdminArtwork";
+"use client";
+import { ArtworkStore } from "@/app/_contexts/ArtworkStore";
+import { Provider } from "react-redux";
+import styled from "styled-components";
+import ArtworkPanel from "./_components/Artwork/ArtworkPanel/ArtworkPanel";
+import DashboardHeader from "./_components/DashboardHeader/DashboardHeader";
+
+const MainStyled = styled.main`
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	background-color: #050a0e;
+`;
 export default function Dashboard() {
 	return (
-		<body className={s.body}>
-			<main>
-				<div className={s.menu}>
-					<div className={s.logo}>Logo</div>
-					<nav>
-						<ul className={s.menu_options}>
-							<button>
-								<li>Artists</li>
-							</button>
-							<button>
-								<li>Museums</li>
-							</button>
-							<button>
-								<li>Artworks</li>
-							</button>
-							<button>
-								<li></li>
-							</button>
-						</ul>
-					</nav>
-				</div>
-				<div className={s.dashboard}>
-					<div>
-						<span>Author/Artwork/Museum</span>
-					</div>
-					<ArtworkFilter />
-					<div className={s.exibit}>
-						<div>
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-							<AdminArtwork />
-						</div>
-					</div>
-				</div>
-			</main>
-		</body>
+		<Provider store={ArtworkStore}>
+			<MainStyled>
+				{/*<ArtworkForm />*/}
+				<DashboardHeader />
+				<ArtworkPanel />
+			</MainStyled>
+		</Provider>
 	);
 }
