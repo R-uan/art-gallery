@@ -12,7 +12,7 @@ const ArtworkFocusSlice = createSlice({
 	name: "ArtworkFocus",
 	initialState: InitialState,
 	reducers: {
-		setArtwork: (state, payload: PayloadAction<IArtwork | null>) => {
+		setFocusArtwork: (state, payload: PayloadAction<IArtwork | null>) => {
 			state.artwork = payload.payload;
 		},
 		setFetching: (state, payload: PayloadAction<boolean>) => {
@@ -25,4 +25,4 @@ const ArtworkFocusSlice = createSlice({
 });
 
 export default ArtworkFocusSlice.reducer;
-export const { setArtwork, setError, setFetching } = ArtworkFocusSlice.actions;
+export const { setFocusArtwork, setError, setFetching } = ArtworkFocusSlice.actions;

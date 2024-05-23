@@ -8,6 +8,7 @@ export interface IArtist {
 }
 
 export interface IPartialArtist {
+	artistId: number;
 	name: string;
 	slug: string;
 }

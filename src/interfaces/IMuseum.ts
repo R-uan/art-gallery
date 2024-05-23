@@ -9,7 +9,7 @@ export default interface IMuseum {
 }
 
 export interface IPartialMuseum {
+	museumId: number;
 	name: string;
-	slug: string;
 	country: string;
 }

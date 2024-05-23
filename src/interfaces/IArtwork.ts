@@ -15,8 +15,8 @@ export interface IArtwork {
 
 export interface IPartialArtwork {
 	artworkId: number;
+	title: string;
 	slug: string;
-	name: string;
 	artist: string;
 	imageURL: string;
 }

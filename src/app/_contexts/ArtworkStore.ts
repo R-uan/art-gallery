@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ArtworkListingSlice from "./ArtworkListingSlice";
 import ArtworkFocusSlice from "./ArtworkFocusSlice";
+import ArtworkListingSlice from "./ArtworkListingSlice";
 
 export const ArtworkStore = configureStore({
 	reducer: {

@@ -22,6 +22,7 @@ export default function Exibition() {
 			try {
 				const page = params.get("page");
 				const result = await ArtworkRequest.PaginatedArtworks(page ? parseInt(page) : 1);
+				console.log(result);
 				if (result) {
 					if (result.items.length == 0) setState(setListingData(null));
 					else setState(setListingData(result));

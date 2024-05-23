@@ -1,7 +1,8 @@
-import { config } from "dotenv";
-import public_instance from "./PublicInstance";
 import { IArtwork, IPartialArtwork } from "@/interfaces/IArtwork";
 import IPaginatedResponse from "@/interfaces/IPaginatedResponse";
+import { UpdateArtworkRequestBody } from "@/interfaces/UpdateArtworkRequestBody";
+import { config } from "dotenv";
+import public_instance from "./PublicInstance";
 config();
 
 export default class ArtworkRequest {
@@ -17,5 +18,19 @@ export default class ArtworkRequest {
 		const request = await public_instance.get(`/artwork/${slug}`);
 		const response_body: IArtwork = request.data;
 		return response_body;
+	}
+
+	public static async GetArtworkById(id: number): Promise<IArtwork> {
+		const request = await public_instance.get(`/artwork/${id}`);
+		const response_body: IArtwork = request.data;
+		return response_body;
+	}
+
+	public static async Update(id: number, data: UpdateArtworkRequestBody): Promise<IArtwork> {
+		const request = await public_instance.patch(`/artwork/${id}`, data);
+		if (request.status == 200) {
+			const response_body: IArtwork = request.data;
+			return response_body;
+		} else throw new Error(request.data);
 	}
 }
