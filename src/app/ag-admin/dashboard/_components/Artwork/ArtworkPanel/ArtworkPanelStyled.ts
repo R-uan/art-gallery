@@ -29,4 +29,22 @@ export const ArtworkPanelStyled = styled.div`
 			}
 		}
 	}
+
+	.create {
+		height: 35px;
+		width: 170px;
+		background-color: red;
+		button {
+			height: 100%;
+			padding: 5px 0;
+			border-radius: 3px;
+			width: 100%;
+			background-color: #00f0ff;
+			span {
+				line-height: 1;
+				color: black;
+				font-size: 1.25rem;
+			}
+		}
+	}
 `;

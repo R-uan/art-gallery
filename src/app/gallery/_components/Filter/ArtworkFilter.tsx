@@ -31,25 +31,9 @@ export default function ArtworkFilter() {
 					</button>
 				</div>
 				<div className={s.year_search}>
-					<input
-						pattern="[0-9]*"
-						placeholder="YYYY"
-						minLength={1}
-						maxLength={4}
-						type="number"
-						min={0}
-						max={2020}
-					/>
+					<input pattern="[0-9]*" placeholder="YYYY" minLength={1} maxLength={4} type="number" min={0} max={2020} />
 					<span>to</span>
-					<input
-						pattern="[0-9]*"
-						placeholder="YYYY"
-						minLength={1}
-						maxLength={4}
-						type="number"
-						min={0}
-						max={2020}
-					/>
+					<input pattern="[0-9]*" placeholder="YYYY" minLength={1} maxLength={4} type="number" min={0} max={2020} />
 				</div>
 			</form>
 		</div>

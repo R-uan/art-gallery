@@ -1,4 +1,4 @@
-import { setArtwork, setError, setFetching } from "@/app/_contexts/ArtworkFocusSlice";
+import { setFocusArtwork, setError, setFetching } from "@/app/_contexts/ArtworkFocusSlice";
 import ArtworkRequest from "@/scripts/ArtworkRequest";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -22,7 +22,7 @@ export default function ArtworkOverview({ slug }: { slug: string }) {
 	useEffect(() => {
 		if (isFetching) setState(setFetching(isFetching));
 		if (isError) setState(setError(isError));
-		if (data) setState(setArtwork(data));
+		if (data) setState(setFocusArtwork(data));
 	}, [isFetching, isError, data]);
 
 	return (

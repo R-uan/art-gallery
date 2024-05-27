@@ -8,7 +8,7 @@ export default function ArtworkLocation() {
 		<div className={s.location}>
 			<div>
 				<div>
-					<span className="font-bebas">Where is it Located ?</span>
+					<span className="font-bebas">Location: Museum {address?.name}</span>
 				</div>
 				<div className={s.address}>
 					<div>

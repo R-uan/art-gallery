@@ -1,21 +1,23 @@
 "use client";
-import ArtworkFilter from "@/app/gallery/_components/Filter/ArtworkFilter";
-import Pagination from "@/app/gallery/_components/Pagination/Pagination";
+import React, { useEffect } from "react";
 import ArtworkRequest from "@/scripts/ArtworkRequest";
-import { useEffect, useState } from "react";
-import AdminArtwork from "../AdminArtwork/AdminArtwork";
-import { ArtworkPanelStyled } from "./ArtworkPanelStyled";
 import { useDispatch, useSelector } from "react-redux";
-import { setListingData } from "@/app/_contexts/ArtworkListingSlice";
+import AdminArtwork from "../AdminArtwork/AdminArtwork";
 import { RootState } from "@/app/_contexts/ArtworkStore";
-import ArtworkForm from "../ArtworkForm/ArtworkForm";
+import { ArtworkPanelStyled } from "./ArtworkPanelStyled";
+import UpdateArtworkForm from "../ArtworkForm/UpdateArtworkForm";
+import CreateArtworkForm from "../ArtworkForm/CreateArtworkForm";
+import { setListingData } from "@/app/_contexts/ArtworkListingSlice";
+import { useCreateArtwork } from "@/app/_contexts/CreateArtworkContext";
 import { useUpdateArtwork } from "@/app/_contexts/UpdateArtworkContext";
+import Pagination from "@/app/gallery/_components/Pagination/Pagination";
+import ArtworkFilter from "@/app/gallery/_components/Filter/ArtworkFilter";
 
 export default function ArtworkPanel() {
-	const [cp, sCp] = useState<number>(1);
-	const { data } = useSelector((s: RootState) => s.artworkListing);
 	const setState = useDispatch();
+	const { isOpen, setOpen } = useCreateArtwork();
 	const { isReadyToUpdate } = useUpdateArtwork();
+	const { data } = useSelector((s: RootState) => s.artworkListing);
 
 	useEffect(() => {
 		const query = async () => {
@@ -27,12 +29,19 @@ export default function ArtworkPanel() {
 
 		query();
 	}, []);
+
 	return (
-		<>
-			{isReadyToUpdate != null ? <ArtworkForm /> : null}
+		<React.Fragment>
+			{isReadyToUpdate != null ? <UpdateArtworkForm /> : null}
+			{isOpen ? <CreateArtworkForm /> : null}
 			<ArtworkPanelStyled>
-				<div className="w-full">
+				<div className="w-full flex justify-center items-center gap-[40px]">
 					<ArtworkFilter />
+					<div className="create">
+						<button onClick={() => setOpen(true)}>
+							<span>Add New</span>
+						</button>
+					</div>
 				</div>
 				<div>
 					<div>
@@ -47,6 +56,6 @@ export default function ArtworkPanel() {
 					<Pagination />
 				</div>
 			</ArtworkPanelStyled>
-		</>
+		</React.Fragment>
 	);
 }

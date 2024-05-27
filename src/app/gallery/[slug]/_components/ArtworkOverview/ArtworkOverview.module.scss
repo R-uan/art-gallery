@@ -17,8 +17,9 @@
 			aspect-ratio: 2/3;
 			height: fit-content;
 			border-radius: 6px;
-			background-color: black;
 			img {
+				width: 100%;
+				object-fit: fill;
 				border-radius: 6px;
 			}
 		}

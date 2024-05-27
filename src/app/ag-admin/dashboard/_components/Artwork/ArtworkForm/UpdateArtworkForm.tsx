@@ -16,7 +16,7 @@ type Inputs = {
 	history: string | null;
 };
 
-export default function ArtworkForm() {
+export default function UpdateArtworkForm() {
 	const artist = useRef<HTMLSelectElement>(null);
 	const museum = useRef<HTMLSelectElement>(null);
 	const [updating, setUpdatingStatus] = useState<boolean>(false);
@@ -45,7 +45,7 @@ export default function ArtworkForm() {
 					museumId: !Number.isNaN(museumId) ? museumId : null,
 				};
 				const request = await ArtworkRequest.Update(artwork!.artworkId, update);
-				if (request) setArtwork(request);
+				if (request) setArtworkId(null);
 			} else setError("Unable to find artwork ID.");
 		} catch (error) {
 			if (error instanceof Error) setError(error.message);
@@ -108,11 +108,7 @@ export default function ArtworkForm() {
 												);
 											})}
 										</select>
-										<textarea
-											{...register("history")}
-											name="history"
-											placeholder="History"
-											id="history"></textarea>
+										<textarea {...register("history")} name="history" placeholder="History" id="history"></textarea>
 									</div>
 								</div>
 								<div className={s.buttons}>
