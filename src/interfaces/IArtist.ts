@@ -1,10 +1,11 @@
 export interface IArtist {
-	slug: string;
-	name: string;
-	movement: string;
-	date_of_birth: string;
-	country_of_birth: string;
-	date_of_death: string | null;
+	artistId: 0;
+	name: string | null;
+	slug: string | null;
+	country: string | null;
+	movement: string | null;
+	biography: string | null;
+	profession: string | null;
 }
 
 export interface IPartialArtist {

@@ -1,10 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import s from "./ArtworkForm.module.scss";
-import { useUpdateArtwork } from "@/app/_contexts/UpdateArtworkContext";
+import { useUpdateArtwork } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/UpdateArtworkContext";
 import { useRef, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
 import ArtworkRequest from "@/scripts/ArtworkRequest";
-import { useCreateArtwork } from "@/app/_contexts/CreateArtworkContext";
+import { useCreateArtwork } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/CreateArtworkContext";
 type Inputs = {
 	title: string;
 	slug: string;

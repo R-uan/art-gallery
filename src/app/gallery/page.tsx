@@ -2,11 +2,10 @@
 import { Provider } from "react-redux";
 import Footer from "../(Components)/Footer/Footer";
 import Header from "../(Components)/Header/Header";
+import { ArtworkStore } from "../_contexts/ArtworkStore";
 import Exibition from "./_components/Exibition/Exibition";
 import ArtworkFilter from "./_components/Filter/ArtworkFilter";
-import Pagination from "./_components/Pagination/Pagination";
 import s from "./page.module.scss";
-import { ArtworkStore } from "../_contexts/ArtworkStore";
 
 export default function Gallery() {
 	return (
@@ -16,7 +15,6 @@ export default function Gallery() {
 				<div className={s.header}></div>
 				<ArtworkFilter />
 				<Exibition />
-				<Pagination />
 			</main>
 			<Footer />
 		</Provider>

@@ -17,13 +17,13 @@ const ArtworkListingSlice = createSlice({
 		setListingData: (state, payload: PayloadAction<IPaginatedResponse<IPartialArtwork> | null>) => {
 			state.data = payload.payload;
 		},
-		setFetching: (state, payload: PayloadAction<boolean>) => {
+		setListingFetch: (state, payload: PayloadAction<boolean>) => {
 			state.fetching = payload.payload;
 		},
-		setError: (state, payload: PayloadAction<boolean>) => {
+		setListingError: (state, payload: PayloadAction<boolean>) => {
 			state.error = payload.payload;
 		},
 	},
 });
-export const { setListingData, setError, setFetching } = ArtworkListingSlice.actions;
+export const { setListingData, setListingError, setListingFetch } = ArtworkListingSlice.actions;
 export default ArtworkListingSlice.reducer;

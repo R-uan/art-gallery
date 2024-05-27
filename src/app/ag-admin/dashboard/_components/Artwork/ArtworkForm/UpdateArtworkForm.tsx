@@ -1,11 +1,12 @@
 "use client";
-import { useUpdateArtwork } from "@/app/_contexts/UpdateArtworkContext";
+import { useUpdateArtwork } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/UpdateArtworkContext";
 import ArtworkRequest from "@/scripts/ArtworkRequest";
 import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { VscLoading } from "react-icons/vsc";
 import s from "./ArtworkForm.module.scss";
 import { AxiosError } from "axios";
+import Modal from "react-modal";
 
 type Inputs = {
 	title: string | null;
@@ -20,7 +21,7 @@ export default function UpdateArtworkForm() {
 	const artist = useRef<HTMLSelectElement>(null);
 	const museum = useRef<HTMLSelectElement>(null);
 	const [updating, setUpdatingStatus] = useState<boolean>(false);
-	const { artwork, museums, artists, isReadyToUpdate, setArtworkId, setArtwork, error, setError } = useUpdateArtwork();
+	const { artwork, museums, artists, artworkId, isReadyToUpdate, setArtworkId, error, setError } = useUpdateArtwork();
 
 	const { register, handleSubmit } = useForm<Inputs>({
 		values: {

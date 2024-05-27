@@ -7,8 +7,8 @@ import IPostArtworkRequestBody from "@/interfaces/PostArtworkRequestBody";
 config();
 
 export default class ArtworkRequest {
-	public static async PaginatedArtworks(page?: number, page_size?: number): Promise<IPaginatedResponse<IPartialArtwork>> {
-		const request = await public_instance.get(`/artwork/partial/paginate?page_index=${page ?? 1}&page_size${page_size ?? 12}`);
+	public static async Paginated(page?: number): Promise<IPaginatedResponse<IPartialArtwork>> {
+		const request = await public_instance.get(`/artwork/partial/paginate?page_index=${page ?? 1}&page_size=15`);
 		const response_body = request.data;
 		return response_body;
 	}

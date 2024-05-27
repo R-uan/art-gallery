@@ -1,4 +1,4 @@
-import { setFocusArtwork, setError, setFetching } from "@/app/_contexts/ArtworkFocusSlice";
+import { setFocusArtwork, setError, setFetching } from "@/app/_contexts/_slices/ArtworkFocusSlice";
 import ArtworkRequest from "@/scripts/ArtworkRequest";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
