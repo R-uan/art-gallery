@@ -1,4 +1,4 @@
-import { IPartialArtist } from "@/interfaces/IArtist";
+import { IPartialArtist } from "@/interfaces/Artist/IArtist";
 import { IArtwork } from "@/interfaces/IArtwork";
 import { IPartialMuseum } from "@/interfaces/IMuseum";
 import ArtistRequest from "@/scripts/ArtistRequest";
@@ -19,7 +19,7 @@ interface IUpdateArtwork {
 	error: string | null;
 }
 
-const UpdateArtworkContext = createContext<IUpdateArtwork | null>(null);
+export const UpdateArtworkContext = createContext<IUpdateArtwork | null>(null);
 export default function UpdateArtworkProvider({ children }: { children: React.ReactNode }) {
 	const [error, setError] = useState<string | null>(null);
 	const [artworkId, setArtworkId] = useState<number | null>(null);
@@ -64,8 +64,7 @@ export default function UpdateArtworkProvider({ children }: { children: React.Re
 	}, [artists, artwork, museums]);
 
 	return (
-		<UpdateArtworkContext.Provider
-			value={{ artists, artwork, isReadyToUpdate, museums, error, artworkId, setArtworkId, setArtwork, setError }}>
+		<UpdateArtworkContext.Provider value={{ artists, artwork, isReadyToUpdate, museums, error, artworkId, setArtworkId, setArtwork, setError }}>
 			{children}
 		</UpdateArtworkContext.Provider>
 	);

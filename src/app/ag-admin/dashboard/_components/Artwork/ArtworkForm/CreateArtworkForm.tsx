@@ -22,6 +22,7 @@ export default function CreateArtworkForm() {
 	const { register, handleSubmit, watch } = useForm<Inputs>({});
 	const { museums, artists, error, setError, setOpen } = useCreateArtwork();
 	const image = watch("imageURL", "");
+
 	const onSubmit: SubmitHandler<Inputs> = async function (data) {
 		try {
 			setSavingStatus(true);

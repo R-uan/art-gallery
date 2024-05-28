@@ -1,4 +1,4 @@
-import { IArtist, IPartialArtist } from "@/interfaces/IArtist";
+import { IArtist, IPartialArtist } from "@/interfaces/Artist/IArtist";
 import { IArtwork } from "@/interfaces/IArtwork";
 import { IPartialMuseum } from "@/interfaces/IMuseum";
 import ArtistRequest from "@/scripts/ArtistRequest";
@@ -17,7 +17,7 @@ interface IUpdateArtistContext {
 	setArtistId: React.Dispatch<SetStateAction<number | null>>;
 }
 
-const UpdateArtistContext = createContext<IUpdateArtistContext | null>(null);
+export const UpdateArtistContext = createContext<IUpdateArtistContext | null>(null);
 export default function UpdateArtistProvider({ children }: { children: React.ReactNode }) {
 	const [error, setError] = useState<string | null>(null);
 	const [artist, setArtist] = useState<IArtist | null>(null);
@@ -27,13 +27,17 @@ export default function UpdateArtistProvider({ children }: { children: React.Rea
 	useEffect(() => {
 		async function Fetch() {
 			try {
-				setReady(false);
-				if (artist == null) {
-					const request = await ArtistRequest.OneById(3);
+				if (artistId) {
+					setReady(false);
+					const request = await ArtistRequest.OneById(artistId);
 					if (request) {
 						setReady(true);
 						setArtist(request);
 					}
+				} else {
+					setReady(null);
+					setArtist(null);
+					setArtistId(null);
 				}
 			} catch (error) {
 				if (error instanceof AxiosError) setError(error.message);
@@ -52,6 +56,6 @@ export default function UpdateArtistProvider({ children }: { children: React.Rea
 
 export function useUpdateArtist() {
 	const context = useContext(UpdateArtistContext);
-	if (context == null) throw Error("Update context nonono");
+	if (context == null) throw Error("UpdateArtistContext is null. Verify if you're consuming the context correctly.");
 	return context;
 }

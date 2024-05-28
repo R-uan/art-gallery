@@ -53,40 +53,44 @@ export default function Dashboard() {
 	const [choice, setChoice] = useState<{ name: string; component: React.ReactNode }>({ name: "Artwork", component: <ArtworkPanel /> });
 	return (
 		<Provider store={ArtworkStore}>
-			<UpdateArtworkProvider>
-				<CreateArtworkProvider>
-					<HeaderStyled>
-						<div>
-							<Link href={"/"}>
-								<span>Home</span>
-							</Link>
-						</div>
-						<div></div>
-						<nav>
-							<ul>
-								<li>
-									<button
-										onClick={() => {
-											setChoice({
-												name: "Artist",
-												component: <ArtistPanel />,
-											});
-										}}>
-										Artist
-									</button>
-								</li>
-								<li>
-									<button>Artwork</button>
-								</li>
-								<li>
-									<button>Museum</button>
-								</li>
-							</ul>
-						</nav>
-					</HeaderStyled>
-					<MainStyled>{choice.component}</MainStyled>
-				</CreateArtworkProvider>
-			</UpdateArtworkProvider>
+			<HeaderStyled>
+				<div>
+					<Link href={"/"}>
+						<span>Home</span>
+					</Link>
+				</div>
+				<div></div>
+				<nav>
+					<ul>
+						<li>
+							<button
+								onClick={() => {
+									setChoice({
+										name: "Artist",
+										component: <ArtistPanel />,
+									});
+								}}>
+								Artist
+							</button>
+						</li>
+						<li>
+							<button
+								onClick={() => {
+									setChoice({
+										name: "Artist",
+										component: <ArtworkPanel />,
+									});
+								}}>
+								Artwork
+							</button>
+						</li>
+						<li>
+							<button>Museum</button>
+						</li>
+					</ul>
+				</nav>
+			</HeaderStyled>
+			<MainStyled>{choice.component}</MainStyled>
 		</Provider>
 	);
 }

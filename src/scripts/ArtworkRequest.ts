@@ -1,9 +1,9 @@
-import { IArtwork, IPartialArtwork } from "@/interfaces/IArtwork";
 import IPaginatedResponse from "@/interfaces/IPaginatedResponse";
-import { UpdateArtworkRequestBody } from "@/interfaces/UpdateArtworkRequestBody";
+import { UpdateArtworkRequestBody } from "@/interfaces/Artwork/IUpdateArtworkRequestBody";
 import { config } from "dotenv";
 import public_instance from "./PublicInstance";
-import IPostArtworkRequestBody from "@/interfaces/PostArtworkRequestBody";
+import { IArtwork, IPartialArtwork } from "@/interfaces/Artwork/IArtwork";
+import IPostArtworkRequestBody from "@/interfaces/Artwork/IPostArtworkRequestBody";
 config();
 
 export default class ArtworkRequest {
@@ -42,7 +42,7 @@ export default class ArtworkRequest {
 	public static async Delete(artworkId: number) {
 		const request = await public_instance.delete(`/artwork/${artworkId}`);
 		const response_body = request.data;
-		console.log("response_body");
-		console.log(response_body);
+		if (request.status == 200) return true;
+		return false;
 	}
 }

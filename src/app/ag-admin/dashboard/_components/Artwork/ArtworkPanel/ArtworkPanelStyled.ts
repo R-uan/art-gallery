@@ -21,7 +21,7 @@ export const ArtworkPanelStyled = styled.div`
 			align-items: center;
 			flex-direction: column;
 
-			.artworks {
+			.listing {
 				gap: 7px;
 				display: grid;
 				width: fit-content;
@@ -31,23 +31,6 @@ export const ArtworkPanelStyled = styled.div`
 				grid-template-columns: repeat(5, auto);
 			}
 		}
-	}
-
-	.teste {
-		margin-top: 30px;
-		width: 100%;
-		display: flex;
-		justify-content: center;
-	}
-
-	.exposition {
-		width: 90%;
-		columns: 5;
-		margin: 5px 5px;
-		column-gap: 10px;
-		height: fit-content;
-		justify-content: center;
-		padding: 5px;
 	}
 
 	.create {

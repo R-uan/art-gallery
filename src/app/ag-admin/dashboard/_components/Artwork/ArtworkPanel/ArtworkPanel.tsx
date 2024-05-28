@@ -1,20 +1,21 @@
 "use client";
-import { setListingData, setListingError, setListingFetch } from "@/app/_contexts/_slices/ArtworkListingSlice";
 import { RootState } from "@/app/_contexts/ArtworkStore";
-import { useCreateArtwork } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/CreateArtworkContext";
-import { useUpdateArtwork } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/UpdateArtworkContext";
+import CreateArtworkProvider, { CreateArtworkContext } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/CreateArtworkContext";
+import UpdateArtworkProvider, { UpdateArtworkContext } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/UpdateArtworkContext";
 import ArtworkFilter from "@/app/gallery/_components/Filter/ArtworkFilter";
 import { IPartialArtwork } from "@/interfaces/IArtwork";
 import ArtworkRequest from "@/scripts/ArtworkRequest";
 import React, { useEffect } from "react";
+import { VscLoading } from "react-icons/vsc";
+import { useInView } from "react-intersection-observer";
+import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import CreateArtworkForm from "../ArtworkForm/CreateArtworkForm";
 import UpdateArtworkForm from "../ArtworkForm/UpdateArtworkForm";
 import { ArtworkPanelStyled } from "./ArtworkPanelStyled";
-import { useInView } from "react-intersection-observer";
-import { VscLoading } from "react-icons/vsc";
-import Modal from "react-modal";
+import { setArtworkListingData, setArtworkListingError, setArtworkListingFetch } from "@/app/_contexts/_slices/ArtworkListingSlice";
+
 const customStyles = {
 	content: {
 		top: "50%",
@@ -35,14 +36,10 @@ const customStyles = {
 
 export default function ArtworkPanel() {
 	const setState = useDispatch();
-	const { setArtworkId } = useUpdateArtwork();
-	const { isOpen, setOpen } = useCreateArtwork();
-	const { isReadyToUpdate } = useUpdateArtwork();
-	const BeginUpdate = (artworkId: number) => setArtworkId(artworkId);
 	const { ref, inView } = useInView({ threshold: 1, initialInView: true });
 	const { data, fetching, error } = useSelector((s: RootState) => s.artworkListing);
 
-	function onClick(data: IPartialArtwork) {
+	function DeleteArtwork(data: IPartialArtwork) {
 		Swal.fire({
 			color: "white",
 			icon: "warning",
@@ -72,7 +69,7 @@ export default function ArtworkPanel() {
 		async function InitialQuery() {
 			try {
 				if (fetching == false && inView == true) {
-					setState(setListingFetch(true));
+					setState(setArtworkListingFetch(true));
 					let artworks = null;
 					if (data?.items.length == null) {
 						artworks = await ArtworkRequest.Paginated();
@@ -81,12 +78,12 @@ export default function ArtworkPanel() {
 						response.items = [...data.items, ...response.items];
 						artworks = response;
 					}
-					if (artworks != null) setState(setListingData(artworks));
+					if (artworks != null) setState(setArtworkListingData(artworks));
 				}
 			} catch (error) {
-				setState(setListingError(true));
+				setState(setArtworkListingError(true));
 			} finally {
-				setState(setListingFetch(false));
+				setState(setArtworkListingFetch(false));
 			}
 		}
 
@@ -94,81 +91,98 @@ export default function ArtworkPanel() {
 	}, [inView]);
 
 	return (
-		<React.Fragment>
-			<Modal preventScroll={true} style={customStyles} isOpen={isReadyToUpdate != null}>
-				<UpdateArtworkForm />
-			</Modal>
-			<Modal preventScroll={true} style={customStyles} isOpen={isOpen}>
-				<CreateArtworkForm />
-			</Modal>
-			<ArtworkPanelStyled>
-				<div className="w-full flex justify-center items-center gap-[40px]">
-					<ArtworkFilter />
-					<div className="create">
-						<button onClick={() => setOpen(true)}>
-							<span>Add New</span>
-						</button>
-					</div>
-				</div>
-				<div>
-					<div>
-						{data && data.items.length > 0 ? (
-							<React.Fragment>
-								<div className="artworks">
-									{data?.items.map((artwork) => {
-										return (
-											<div className="img_box">
-												<img alt={artwork.slug} src={artwork.imageURL} />
-												<div className="info">
-													<div className="flex justify-between">
-														<button onClick={() => onClick(artwork)}>
-															<span>Delete</span>
-														</button>
-														<button onClick={() => BeginUpdate(artwork.artworkId)}>
-															<span>Update</span>
-														</button>
-													</div>
-													<div>
-														<h1>{artwork.title}</h1>
-														<h3>{artwork.artist}</h3>
-													</div>
+		<UpdateArtworkProvider>
+			<UpdateArtworkContext.Consumer>
+				{(update_context) => (
+					<React.Fragment>
+						<Modal preventScroll={true} style={customStyles} isOpen={update_context?.isReadyToUpdate != null}>
+							<UpdateArtworkForm />
+						</Modal>
+						<CreateArtworkProvider>
+							<CreateArtworkContext.Consumer>
+								{(create_context) => (
+									<React.Fragment>
+										<Modal preventScroll={true} style={customStyles} isOpen={create_context?.isOpen ?? false}>
+											<CreateArtworkForm />
+										</Modal>
+										<ArtworkPanelStyled>
+											<div className="w-full flex justify-center items-center gap-[40px]">
+												<ArtworkFilter />
+												<div className="create">
+													<button onClick={() => create_context?.setOpen(true)}>
+														<span>Add New</span>
+													</button>
 												</div>
 											</div>
-										);
-									})}
-								</div>
-								{data.hasNextPage ? (
-									<div ref={ref} className="teste">
-										<span className="text-[2vw] h-fit">
-											<VscLoading fill="white" className="animate-spin" />
-										</span>
-									</div>
-								) : null}
-							</React.Fragment>
-						) : data && data.items.length == 0 ? (
-							<div className="flex items-center justify-center w-full  min-h-[73vh]">
-								<div>
-									<span className="text-[3vw] text-white">Oops! Nothing was found.</span>
-								</div>
-							</div>
-						) : error ? (
-							<div className="flex items-center justify-center w-full min-h-[73vh]">
-								<div>
-									<span className="text-[3vw] text-white">An Unexpected Error Occurred.</span>
-								</div>
-							</div>
-						) : (
-							<div className="flex items-center justify-center w-full  min-h-[73vh]">
-								<div className="animate-spin">
-									<span className="text-[3vw]">
-										<VscLoading fill="white" />
-									</span>
-								</div>
-							</div>
-						)}
-					</div>
-				</div>
-			</ArtworkPanelStyled>
-		</React.Fragment>
+											<div>
+												<div>
+													{data && data.items.length > 0 ? (
+														<React.Fragment>
+															<div className="listing">
+																{data?.items.map((artwork, index) => {
+																	return (
+																		<div key={artwork.slug + index} className="img_box">
+																			<img alt={artwork.slug} src={artwork.imageURL} />
+																			<div className="info">
+																				<div className="flex justify-between">
+																					<button onClick={() => DeleteArtwork(artwork)}>
+																						<span>Delete</span>
+																					</button>
+																					<button
+																						onClick={() =>
+																							update_context?.setArtworkId(artwork.artworkId)
+																						}>
+																						<span>Update</span>
+																					</button>
+																				</div>
+																				<div>
+																					<h1>{artwork.title}</h1>
+																					<h3>{artwork.artist}</h3>
+																				</div>
+																			</div>
+																		</div>
+																	);
+																})}
+															</div>
+															{data.hasNextPage ? (
+																<div ref={ref}>
+																	<span className="text-[2vw] h-fit">
+																		<VscLoading fill="white" className="animate-spin" />
+																	</span>
+																</div>
+															) : null}
+														</React.Fragment>
+													) : data && data.items.length == 0 ? (
+														<div className="flex items-center justify-center w-full  min-h-[73vh]">
+															<div>
+																<span className="text-[3vw] text-white">Oops! Nothing was found.</span>
+															</div>
+														</div>
+													) : error ? (
+														<div className="flex items-center justify-center w-full min-h-[73vh]">
+															<div>
+																<span className="text-[3vw] text-white">An Unexpected Error Occurred.</span>
+															</div>
+														</div>
+													) : (
+														<div className="flex items-center justify-center w-full  min-h-[73vh]">
+															<div className="animate-spin">
+																<span className="text-[3vw]">
+																	<VscLoading fill="white" />
+																</span>
+															</div>
+														</div>
+													)}
+												</div>
+											</div>
+										</ArtworkPanelStyled>
+									</React.Fragment>
+								)}
+							</CreateArtworkContext.Consumer>
+						</CreateArtworkProvider>
+					</React.Fragment>
+				)}
+			</UpdateArtworkContext.Consumer>
+		</UpdateArtworkProvider>
 	);
 }

@@ -7,6 +7,32 @@ export const ArtistPanelStyled = styled.div`
 	display: flex;
 	flex-direction: column;
 
+	& > div:nth-child(2) {
+		flex-grow: 1;
+		display: flex;
+		padding: 10px;
+		flex-direction: column;
+
+		& > div:first-child {
+			width: 100%;
+			padding: 15px;
+			display: flex;
+			height: fit-content;
+			align-items: center;
+			flex-direction: column;
+
+			.listing {
+				gap: 7px;
+				display: grid;
+				width: fit-content;
+				height: fit-content;
+				justify-items: center;
+				grid-auto-rows: 250px;
+				grid-template-columns: repeat(5, auto);
+			}
+		}
+	}
+
 	.create {
 		height: 35px;
 		width: 170px;
@@ -25,26 +51,62 @@ export const ArtistPanelStyled = styled.div`
 		}
 	}
 
-	& > div:nth-child(2) {
-		flex-grow: 1;
-		padding: 10px;
-		display: flex;
-		flex-direction: column;
+	.img_box {
+		width: 250px;
+		height: 250px;
+		position: relative;
+		border-radius: 15px;
 
-		& > div:first-child {
+		& > .info {
+			left: 0;
+			bottom: 0;
+			opacity: 0;
 			width: 100%;
-			padding: 15px;
+			height: 100%;
 			display: flex;
-			height: fit-content;
-			justify-content: center;
+			padding: 20px;
+			color: white;
+			position: absolute;
+			border-radius: 15px;
+			flex-direction: column;
+			justify-content: space-between;
+			transition: opacity ease-in-out 0.7s;
+			background-color: rgba(0, 0, 0, 0.5);
 
-			.artworks {
-				gap: 7px;
-				display: grid;
-				height: fit-content;
-				grid-template-columns: repeat(6, auto);
-				grid-template-rows: repeat(2, 230px);
+			& > div:first-child {
+				& > span {
+					line-height: 1;
+					font-size: 1.5rem;
+				}
 			}
+
+			& > div:last-child {
+				& > h1 {
+					font-weight: bold;
+					line-height: 1;
+					font-size: 1.75rem;
+				}
+
+				& > h3 {
+					font-weight: 200;
+					line-height: 1;
+					font-size: 1.3rem;
+				}
+			}
+		}
+
+		& img {
+			width: 100%;
+			height: 100%;
+			border-radius: 15px;
+			object-fit: cover;
+		}
+	}
+
+	.img_box:hover {
+		& > .info {
+			opacity: 1;
+			transition: opacity ease-in-out 0.5s;
 		}
 	}
 `;

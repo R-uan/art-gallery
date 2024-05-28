@@ -1,4 +1,4 @@
-import { IPartialArtist } from "@/interfaces/IArtist";
+import { IPartialArtist } from "@/interfaces/Artist/IArtist";
 import { IArtwork } from "@/interfaces/IArtwork";
 import { IPartialMuseum } from "@/interfaces/IMuseum";
 import ArtistRequest from "@/scripts/ArtistRequest";
@@ -17,7 +17,7 @@ interface ICreateArtwork {
 	setError: React.Dispatch<SetStateAction<string | null>>;
 }
 
-const CreateArtworkContext = createContext<ICreateArtwork | null>(null);
+export const CreateArtworkContext = createContext<ICreateArtwork | null>(null);
 export default function CreateArtworkProvider({ children }: { children: React.ReactNode }) {
 	const [error, setError] = useState<string | null>(null);
 	const [isReadyToCreate, setReady] = useState<boolean | null>(null);

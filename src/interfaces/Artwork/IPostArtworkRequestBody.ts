@@ -6,5 +6,5 @@ export default interface IPostArtworkRequestBody {
 	year: number;
 	artistId: number;
 	museumId: number;
-	history: string | null;
+	history: string;
 }
