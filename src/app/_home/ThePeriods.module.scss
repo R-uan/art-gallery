@@ -1,0 +1,65 @@
+.the_periods {
+	gap: 50px;
+	width: 100%;
+	display: flex;
+	padding: 40px 70px;
+	position: relative;
+	height: fit-content;
+	flex-direction: column;
+
+	& > div:first-child {
+		& > span {
+			line-height: 1.3;
+			font-size: 4vw;
+		}
+
+		& > p {
+			width: 50%;
+			line-height: 1.2;
+			font-size: 1.6vw;
+		}
+	}
+
+	& > .featured {
+		gap: 5px;
+		width: 100%;
+		display: flex;
+		height: fit-content;
+		justify-content: space-between;
+	}
+
+	& > div:last-child {
+		gap: 50px;
+		width: 100%;
+		padding: 100px 0px;
+		display: flex;
+		position: relative;
+		flex-direction: column;
+
+		& > div:first-child {
+			& > span {
+				line-height: 1.3;
+				font-size: 3vw;
+			}
+		}
+
+		& > div:last-child {
+			& > ul {
+				width: 100%;
+				display: grid;
+				row-gap: 10px;
+				position: relative;
+				grid-template-columns: repeat(3, 25%);
+
+				& li {
+					width: 100%;
+					line-height: 1;
+					color: #fefefe;
+					border-radius: 2px;
+					padding: 10px 20px;
+					font-size: clamp(0.8rem, 1.7vw, 1.7vw);
+				}
+			}
+		}
+	}
+}
