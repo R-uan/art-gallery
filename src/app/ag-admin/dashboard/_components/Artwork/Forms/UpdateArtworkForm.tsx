@@ -1,12 +1,12 @@
 "use client";
-import { useUpdateArtwork } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/UpdateArtworkContext";
-import ArtworkRequest from "@/scripts/ArtworkRequest";
 import { useRef, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { VscLoading } from "react-icons/vsc";
-import s from "./ArtworkForm.module.scss";
-import { AxiosError } from "axios";
-import Modal from "react-modal";
+import { ArtworkFormStyled } from "./ArtworkFormStyled";
+import { SubmitHandler, useForm } from "react-hook-form";
+import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
+import { useUpdateArtwork } from "../Contexts/UpdateArtworkContext";
+import { setArtworkListingData } from "@/app/_contexts/_slices/ArtworkListingSlice";
 
 type Inputs = {
 	title: string | null;
@@ -46,7 +46,12 @@ export default function UpdateArtworkForm() {
 					museumId: !Number.isNaN(museumId) ? museumId : null,
 				};
 				const request = await ArtworkRequest.Update(artwork!.artworkId, update);
-				if (request) setArtworkId(null);
+				if (request) {
+					setArtworkId(null);
+					const artworks = await ArtworkRequest.Paginated();
+					const setState = useDispatch();
+					setState(setArtworkListingData(artworks));
+				}
 			} else setError("Unable to find artwork ID.");
 		} catch (error) {
 			if (error instanceof Error) setError(error.message);
@@ -57,7 +62,7 @@ export default function UpdateArtworkForm() {
 	};
 
 	return (
-		<div className={s.focus}>
+		<ArtworkFormStyled>
 			{isReadyToUpdate == false && error == null ? (
 				<span className="animate-spin h-fit w-fit">
 					<VscLoading fill="white" size={50} />
@@ -66,7 +71,7 @@ export default function UpdateArtworkForm() {
 				<span className="animate-spin text-[1.25rem] max-w-[70%] ">{error}</span>
 			) : (
 				<>
-					<div className={s.head}>
+					<div className="head">
 						<div className="h-fit">
 							<span className="text-[1.5rem] leading-[1]">Update Artwork</span>
 						</div>
@@ -76,12 +81,12 @@ export default function UpdateArtworkForm() {
 							</button>
 						</div>
 					</div>
-					<div className={s.artwork}>
-						<div className={s.image}>
+					<div className="artwork">
+						<div className="image">
 							<img src={artwork?.imageURL} alt={artwork?.slug} />
 						</div>
 						<div>
-							<form action="post" className={s.form} onSubmit={handleSubmit(onSubmit)}>
+							<form action="post" onSubmit={handleSubmit(onSubmit)}>
 								<div className="flex gap-[10px]">
 									<div className="flex flex-col gap-[10px]">
 										<input {...register("title")} type="text" placeholder="Title" />
@@ -112,7 +117,7 @@ export default function UpdateArtworkForm() {
 										<textarea {...register("history")} name="history" placeholder="History" id="history"></textarea>
 									</div>
 								</div>
-								<div className={s.buttons}>
+								<div className="buttons">
 									<button disabled={updating} type="submit" className="flex justify-center items-center">
 										{updating ? (
 											<span className="animate-spin h-fit">
@@ -128,6 +133,6 @@ export default function UpdateArtworkForm() {
 					</div>
 				</>
 			)}
-		</div>
+		</ArtworkFormStyled>
 	);
 }

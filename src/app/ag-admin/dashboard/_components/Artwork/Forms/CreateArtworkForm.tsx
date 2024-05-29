@@ -1,17 +1,19 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import s from "./ArtworkForm.module.scss";
-import { useUpdateArtwork } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/UpdateArtworkContext";
+import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
 import { useRef, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { VscLoading } from "react-icons/vsc";
-import ArtworkRequest from "@/scripts/ArtworkRequest";
-import { useCreateArtwork } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/CreateArtworkContext";
+import { useCreateArtwork } from "../Contexts/CreateArtworkContext";
+import { ArtworkFormStyled } from "./ArtworkFormStyled";
+import { useDispatch } from "react-redux";
+import { setArtworkListingData } from "@/app/_contexts/_slices/ArtworkListingSlice";
+
 type Inputs = {
 	title: string;
 	slug: string;
 	imageURL: string;
 	period: string;
 	year: number;
-	history: string | null;
+	history: string;
 };
 
 export default function CreateArtworkForm() {
@@ -29,7 +31,12 @@ export default function CreateArtworkForm() {
 			const artistId = artist.current ? parseInt(artist.current.value) : 0;
 			const museumId = museum.current ? parseInt(museum.current.value) : 0;
 			const artwork = { ...data, artistId, museumId };
-			const request = ArtworkRequest.Post(artwork);
+			const request = await ArtworkRequest.Post(artwork);
+			if (request) {
+				const artworks = await ArtworkRequest.Paginated();
+				const setState = useDispatch();
+				setState(setArtworkListingData(artworks));
+			}
 		} catch (error) {
 			if (error instanceof Error) setError(error.message);
 			else setError("Unexpected Error.");
@@ -39,12 +46,12 @@ export default function CreateArtworkForm() {
 	};
 
 	return (
-		<div className={s.focus}>
+		<ArtworkFormStyled>
 			{error ? (
 				<span className="animate-spin text-[1.25rem] max-w-[70%] ">{error}</span>
 			) : (
 				<>
-					<div className={s.head}>
+					<div className="head">
 						<div className="h-fit">
 							<span className="text-[1.5rem] leading-[1]">Save Artwork</span>
 						</div>
@@ -54,12 +61,12 @@ export default function CreateArtworkForm() {
 							</button>
 						</div>
 					</div>
-					<div className={s.artwork}>
-						<div className={s.image}>
+					<div className="artwork">
+						<div className="image">
 							<img src={image} alt="image preview" />
 						</div>
 						<div>
-							<form action="post" className={s.form} onSubmit={handleSubmit(onSubmit)}>
+							<form action="post" onSubmit={handleSubmit(onSubmit)}>
 								<div className="flex gap-[10px]">
 									<div className="flex flex-col gap-[10px]">
 										<input {...register("title")} type="text" placeholder="Title" required />
@@ -90,7 +97,7 @@ export default function CreateArtworkForm() {
 										<textarea {...register("history")} name="history" placeholder="History" id="history"></textarea>
 									</div>
 								</div>
-								<div className={s.buttons}>
+								<div className="buttons">
 									<button disabled={saving} type="submit" className="flex justify-center items-center">
 										{saving ? (
 											<span className="animate-spin h-fit">
@@ -106,6 +113,6 @@ export default function CreateArtworkForm() {
 					</div>
 				</>
 			)}
-		</div>
+		</ArtworkFormStyled>
 	);
 }

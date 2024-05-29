@@ -1,11 +1,7 @@
-import { IArtist, IPartialArtist } from "@/interfaces/Artist/IArtist";
-import { IArtwork } from "@/interfaces/IArtwork";
-import { IPartialMuseum } from "@/interfaces/IMuseum";
-import ArtistRequest from "@/scripts/ArtistRequest";
-import ArtworkRequest from "@/scripts/ArtworkRequest";
-import MuseumRequest from "@/scripts/MuseumRequest";
 import { AxiosError } from "axios";
+import { IArtist } from "@/interfaces/Artist/IArtist";
 import { createContext, SetStateAction, useContext, useEffect, useState } from "react";
+import ArtistRequest from "@/scripts/Requests/ArtistRequest";
 
 interface IUpdateArtistContext {
 	error: string | null;
@@ -18,6 +14,7 @@ interface IUpdateArtistContext {
 }
 
 export const UpdateArtistContext = createContext<IUpdateArtistContext | null>(null);
+
 export default function UpdateArtistProvider({ children }: { children: React.ReactNode }) {
 	const [error, setError] = useState<string | null>(null);
 	const [artist, setArtist] = useState<IArtist | null>(null);

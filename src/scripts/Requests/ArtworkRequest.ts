@@ -1,7 +1,7 @@
 import IPaginatedResponse from "@/interfaces/IPaginatedResponse";
 import { UpdateArtworkRequestBody } from "@/interfaces/Artwork/IUpdateArtworkRequestBody";
 import { config } from "dotenv";
-import public_instance from "./PublicInstance";
+import public_instance from "../PublicInstance";
 import { IArtwork, IPartialArtwork } from "@/interfaces/Artwork/IArtwork";
 import IPostArtworkRequestBody from "@/interfaces/Artwork/IPostArtworkRequestBody";
 config();
@@ -41,7 +41,6 @@ export default class ArtworkRequest {
 
 	public static async Delete(artworkId: number) {
 		const request = await public_instance.delete(`/artwork/${artworkId}`);
-		const response_body = request.data;
 		if (request.status == 200) return true;
 		return false;
 	}

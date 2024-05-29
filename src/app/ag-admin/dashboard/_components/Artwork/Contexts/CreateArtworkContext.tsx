@@ -1,9 +1,7 @@
 import { IPartialArtist } from "@/interfaces/Artist/IArtist";
-import { IArtwork } from "@/interfaces/IArtwork";
 import { IPartialMuseum } from "@/interfaces/IMuseum";
-import ArtistRequest from "@/scripts/ArtistRequest";
-import ArtworkRequest from "@/scripts/ArtworkRequest";
-import MuseumRequest from "@/scripts/MuseumRequest";
+import ArtistRequest from "@/scripts/Requests/ArtistRequest";
+import MuseumRequest from "@/scripts/Requests/MuseumRequest";
 import { AxiosError } from "axios";
 import { createContext, SetStateAction, useContext, useEffect, useState } from "react";
 

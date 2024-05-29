@@ -1,4 +1,6 @@
-.focus {
+import styled from "styled-components";
+
+export const ArtworkFormStyled = styled.div`
 	top: 50%;
 	left: 50%;
 	width: 50vw;
@@ -98,4 +100,4 @@
 			}
 		}
 	}
-}
+`;

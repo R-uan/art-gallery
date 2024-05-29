@@ -2,19 +2,19 @@
 import ArtistSearch from "@/app/(Components)/Search/Artist/ArtistSearch";
 import React, { useEffect } from "react";
 import { ArtistPanelStyled } from "./ArtistPanelStyled";
-import UpdateArtistProvider, { UpdateArtistContext } from "./UpdateArtistContext";
-import UpdateArtistForm from "./UpdateArtistForm";
+import UpdateArtistProvider, { UpdateArtistContext } from "./Contexts/UpdateArtistContext";
 import ReactModal from "react-modal";
-import CreateArtistProvider, { CreateArtistContext } from "./CreateArtistContext";
-import CreateArtistForm from "./CreateArtistForm";
+import CreateArtistProvider, { CreateArtistContext } from "./Contexts/CreateArtistContext";
+import CreateArtistForm from "./Forms/CreateArtistForm";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useInView } from "react-intersection-observer";
 import { setArtistListingData, setArtistListingError, setArtistListingFetch } from "@/app/_contexts/_slices/ArtistListingSlice";
-import ArtistRequest from "@/scripts/ArtistRequest";
 import { VscLoading } from "react-icons/vsc";
 import { IPartialArtist } from "@/interfaces/Artist/IArtist";
-import { RootState } from "@/app/_contexts/ArtworkStore";
+import { RootState } from "@/app/_contexts/GalleryStore";
+import Swal from "sweetalert2";
+import UpdateArtistForm from "./Forms/UpdateArtistForm";
+import ArtistRequest from "@/scripts/Requests/ArtistRequest";
 
 const customStyles = {
 	content: {
@@ -64,7 +64,35 @@ export default function ArtistPanel() {
 		InitialQuery();
 	}, [inView]);
 
-	async function DeleteArtist(artist: IPartialArtist) {}
+	async function DeleteArtist(artist: IPartialArtist) {
+		Swal.fire({
+			color: "white",
+			icon: "warning",
+			title: "Are you sure?",
+			showCancelButton: true,
+			background: "#050a0e",
+			cancelButtonColor: "#FF003C",
+			confirmButtonColor: "#00F0FF",
+			confirmButtonText: "Yes, delete it!",
+			text: `Do you want to delete ${artist.name} ? You won't be able to revert this!`,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				const request = await ArtistRequest.Delete(artist.artistId);
+				if (request == true) {
+					Swal.fire({
+						color: "white",
+						icon: "success",
+						title: "Deleted!",
+						background: "#050a0e",
+						text: `${artist.name} deleted!`,
+						confirmButtonColor: "#00F0FF",
+					});
+					const artists = await ArtistRequest.Paginated();
+					setState(setArtistListingData(artists));
+				}
+			}
+		});
+	}
 
 	return (
 		<UpdateArtistProvider>
@@ -98,7 +126,7 @@ export default function ArtistPanel() {
 																<div className="listing">
 																	{data?.items.map((artist, index) => {
 																		return (
-																			<div key={artist.slug + index} className="img_box bg-[white]">
+																			<div key={artist.slug + index} className="img_box">
 																				<img alt={artist.slug} src={artist.imageURL} />
 																				<div className="info">
 																					<div className="flex justify-between">

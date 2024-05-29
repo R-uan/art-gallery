@@ -1,20 +1,20 @@
 "use client";
-import { RootState } from "@/app/_contexts/ArtworkStore";
-import CreateArtworkProvider, { CreateArtworkContext } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/CreateArtworkContext";
-import UpdateArtworkProvider, { UpdateArtworkContext } from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/UpdateArtworkContext";
-import ArtworkFilter from "@/app/gallery/_components/Filter/ArtworkFilter";
-import { IPartialArtwork } from "@/interfaces/IArtwork";
-import ArtworkRequest from "@/scripts/ArtworkRequest";
+import Swal from "sweetalert2";
+import Modal from "react-modal";
 import React, { useEffect } from "react";
 import { VscLoading } from "react-icons/vsc";
-import { useInView } from "react-intersection-observer";
-import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
-import CreateArtworkForm from "../ArtworkForm/CreateArtworkForm";
-import UpdateArtworkForm from "../ArtworkForm/UpdateArtworkForm";
+import { useInView } from "react-intersection-observer";
+import { RootState } from "@/app/_contexts/GalleryStore";
+import CreateArtworkForm from "./Forms/CreateArtworkForm";
+import UpdateArtworkForm from "./Forms/UpdateArtworkForm";
 import { ArtworkPanelStyled } from "./ArtworkPanelStyled";
+import { IPartialArtwork } from "@/interfaces/Artwork/IArtwork";
+import ArtworkFilter from "@/app/gallery/_components/Filter/ArtworkFilter";
 import { setArtworkListingData, setArtworkListingError, setArtworkListingFetch } from "@/app/_contexts/_slices/ArtworkListingSlice";
+import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
+import UpdateArtworkProvider, { UpdateArtworkContext } from "./Contexts/UpdateArtworkContext";
+import CreateArtworkProvider, { CreateArtworkContext } from "./Contexts/CreateArtworkContext";
 
 const customStyles = {
 	content: {
@@ -53,14 +53,18 @@ export default function ArtworkPanel() {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				const request = await ArtworkRequest.Delete(data.artworkId);
-				Swal.fire({
-					color: "white",
-					icon: "success",
-					title: "Deleted!",
-					background: "#050a0e",
-					text: `${data.title} deleted!`,
-					confirmButtonColor: "#00F0FF",
-				});
+				if (request == true) {
+					Swal.fire({
+						color: "white",
+						icon: "success",
+						title: "Deleted!",
+						background: "#050a0e",
+						text: `${data.title} deleted!`,
+						confirmButtonColor: "#00F0FF",
+					});
+					const artworks = await ArtworkRequest.Paginated();
+					setState(setArtworkListingData(artworks));
+				}
 			}
 		});
 	}

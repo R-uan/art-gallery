@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosHeaders, AxiosRequestConfig } from "axios";
-import public_instance from "./PublicInstance";
+import public_instance from "../PublicInstance";
 import Cookies from "js-cookie";
-import UnauthorizedError from "./UnauthorizedError";
+import UnauthorizedError from "../UnauthorizedError";
 export default class AuthenticationRequest {
 	public static async Authenticate(username: string, password: string) {
 		try {

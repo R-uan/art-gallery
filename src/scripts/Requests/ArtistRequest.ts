@@ -1,4 +1,4 @@
-import public_instance from "./PublicInstance";
+import public_instance from "../PublicInstance";
 import IPaginatedResponse from "@/interfaces/IPaginatedResponse";
 import { IArtist, IPartialArtist } from "@/interfaces/Artist/IArtist";
 import IPostArtistRequestBody from "@/interfaces/Artist/IPostArtistRequestBody";
@@ -23,7 +23,15 @@ export default class ArtistRequest {
 		return response_body;
 	}
 
+	public static async Delete(id: number) {
+		const request = await public_instance.delete(`/artist/${id}`);
+		if (request.status == 200) return true;
+		return false;
+	}
+
 	public static async Update(id: number, artist: IUpdateArtistRequestBody) {
+		const request = await public_instance.patch(`/artist/${id}`, artist);
+		if (request.status == 200) return true;
 		return false;
 	}
 

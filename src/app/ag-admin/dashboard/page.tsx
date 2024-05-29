@@ -1,14 +1,11 @@
 "use client";
-import { ArtworkStore } from "@/app/_contexts/ArtworkStore";
-import CreateArtworkProvider from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/CreateArtworkContext";
-import UpdateArtworkProvider from "@/app/ag-admin/dashboard/_components/Artwork/ArtworkForm/_context/UpdateArtworkContext";
+import Link from "next/link";
 import { useState } from "react";
 import { Provider } from "react-redux";
 import styled from "styled-components";
-import ArtworkPanel from "./_components/Artwork/ArtworkPanel/ArtworkPanel";
-import DashboardHeader from "./_components/DashboardHeader/DashboardHeader";
-import Link from "next/link";
 import ArtistPanel from "./_components/Artist/ArtistPanel";
+import { GalleryStore } from "@/app/_contexts/GalleryStore";
+import ArtworkPanel from "./_components/Artwork/ArtworkPanel";
 
 const MainStyled = styled.main`
 	width: 100%;
@@ -52,7 +49,7 @@ const HeaderStyled = styled.header`
 export default function Dashboard() {
 	const [choice, setChoice] = useState<{ name: string; component: React.ReactNode }>({ name: "Artwork", component: <ArtworkPanel /> });
 	return (
-		<Provider store={ArtworkStore}>
+		<Provider store={GalleryStore}>
 			<HeaderStyled>
 				<div>
 					<Link href={"/"}>
