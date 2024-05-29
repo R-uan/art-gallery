@@ -30,17 +30,27 @@ const HeaderStyled = styled.header`
 		outline: 2px solid red;
 	}
 
-	nav {
-		padding: 10px;
-		height: fit-content;
+	& > nav {
+		display: flex;
+		align-items: center;
 		width: fit-content;
-		outline: 2px solid red;
-		ul {
-			gap: 30px;
+		height: fit-content;
+
+		& > ul {
+			gap: 25px;
+			width: 100%;
 			display: flex;
-			color: white;
+
 			li {
-				font-size: 1.5rem;
+				color: #decfd3;
+				line-height: 1;
+				font-size: 1.75rem;
+				transition: transform ease-in-out 0.2s;
+			}
+
+			li:hover {
+				transform: scale(1.2);
+				transition: transform ease-in-out 0.2s;
 			}
 		}
 	}
@@ -56,7 +66,6 @@ export default function Dashboard() {
 						<span>Home</span>
 					</Link>
 				</div>
-				<div></div>
 				<nav>
 					<ul>
 						<li>
@@ -84,6 +93,16 @@ export default function Dashboard() {
 						<li>
 							<button>Museum</button>
 						</li>
+					</ul>
+				</nav>
+				<nav>
+					<ul>
+						<Link href="/">
+							<li>Home</li>
+						</Link>
+						<Link href="">
+							<li>About</li>
+						</Link>
 					</ul>
 				</nav>
 			</HeaderStyled>
