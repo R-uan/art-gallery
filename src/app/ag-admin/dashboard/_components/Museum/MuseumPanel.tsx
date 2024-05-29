@@ -1,20 +1,20 @@
 "use client";
-import ArtistSearch from "@/app/(Components)/Search/Artist/ArtistSearch";
-import React, { useEffect, useState } from "react";
-import { ArtistPanelStyled } from "./ArtistPanelStyled";
-import UpdateArtistProvider, { UpdateArtistContext } from "./Contexts/UpdateArtistContext";
-import ReactModal from "react-modal";
-import CreateArtistProvider, { CreateArtistContext } from "./Contexts/CreateArtistContext";
-import CreateArtistForm from "./Forms/CreateArtistForm";
-import { useDispatch, useSelector } from "react-redux";
-import { useInView } from "react-intersection-observer";
-import { setArtistListingData, setArtistListingError, setArtistListingFetch } from "@/app/_contexts/_slices/ArtistListingSlice";
-import { VscLoading } from "react-icons/vsc";
-import { IPartialArtist } from "@/interfaces/Artist/IArtist";
+import { setMuseumListingData, setMuseumListingError, setMuseumListingFetch } from "@/app/_contexts/_slices/MuseumListingSlice";
 import { RootState } from "@/app/_contexts/GalleryStore";
+import { IPartialMuseum } from "@/interfaces/Museum/IMuseum";
+import MuseumRequest from "@/scripts/Requests/MuseumRequest";
+import React, { useEffect, useState } from "react";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import { VscLoading } from "react-icons/vsc";
+import { useInView } from "react-intersection-observer";
+import ReactModal from "react-modal";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import UpdateArtistForm from "./Forms/UpdateArtistForm";
-import ArtistRequest from "@/scripts/Requests/ArtistRequest";
+import CreateMuseumProvider, { CreateMuseumContext } from "./Contexts/CreateMuseumContext";
+import UpdateMuseumProvider, { UpdateMuseumContext } from "./Contexts/UpdateMuseumContext";
+import CreateMuseumForm from "./Forms/CreateMuseumForm";
+import UpdateMuseumForm from "./Forms/UpdateMuseumForm";
+import { MuseumPanelStyled } from "./MuseumPanelStyled";
 
 const customStyles = {
 	content: {
@@ -34,16 +34,16 @@ const customStyles = {
 	},
 };
 
-export default function ArtistPanel() {
+export default function MuseumPanel() {
 	const setState = useDispatch();
 	const [refresh, setRefresh] = useState<number>(0);
 	const { ref, inView } = useInView({ threshold: 1, initialInView: true });
-	const { data, fetching, error } = useSelector((s: RootState) => s.artistListing);
+	const { data, fetching, error } = useSelector((s: RootState) => s.museumListing);
 
 	useEffect(() => {
 		async function Refresh() {
-			const request = await ArtistRequest.Paginated();
-			setState(setArtistListingData(request));
+			const request = await MuseumRequest.Paginated();
+			setState(setMuseumListingData(request));
 		}
 
 		Refresh();
@@ -53,28 +53,28 @@ export default function ArtistPanel() {
 		async function InitialQuery() {
 			try {
 				if (fetching == false && inView == true) {
-					setState(setArtistListingFetch(true));
-					let artists = null;
+					setState(setMuseumListingFetch(true));
+					let museums = null;
 					if (data?.items.length == null) {
-						artists = await ArtistRequest.Paginated();
+						museums = await MuseumRequest.Paginated();
 					} else if (data != null && data.hasNextPage) {
-						const response = await ArtistRequest.Paginated(data.pageIndex + 1);
+						const response = await MuseumRequest.Paginated(data.pageIndex + 1);
 						response.items = [...data.items, ...response.items];
-						artists = response;
+						museums = response;
 					}
-					if (artists != null) setState(setArtistListingData(artists));
+					if (museums != null) setState(setMuseumListingData(museums));
 				}
 			} catch (error) {
-				setState(setArtistListingError(true));
+				setState(setMuseumListingError(true));
 			} finally {
-				setState(setArtistListingFetch(false));
+				setState(setMuseumListingFetch(false));
 			}
 		}
 
 		InitialQuery();
 	}, [inView]);
 
-	async function DeleteArtist(artist: IPartialArtist) {
+	async function DeleteMuseum(museum: IPartialMuseum) {
 		Swal.fire({
 			color: "white",
 			icon: "warning",
@@ -84,45 +84,50 @@ export default function ArtistPanel() {
 			cancelButtonColor: "#FF003C",
 			confirmButtonColor: "#00F0FF",
 			confirmButtonText: "Yes, delete it!",
-			text: `Do you want to delete ${artist.name} ? You won't be able to revert this!`,
+			text: `Do you want to delete ${museum.name} ? You won't be able to revert this!`,
 		}).then(async (result) => {
 			if (result.isConfirmed) {
-				const request = await ArtistRequest.Delete(artist.artistId);
+				const request = await MuseumRequest.Delete(museum.museumId);
 				if (request == true) {
 					Swal.fire({
 						color: "white",
 						icon: "success",
 						title: "Deleted!",
 						background: "#050a0e",
-						text: `${artist.name} deleted!`,
+						text: `${museum.name} deleted!`,
 						confirmButtonColor: "#00F0FF",
 					});
-					const artists = await ArtistRequest.Paginated();
-					setState(setArtistListingData(artists));
+					const museums = await MuseumRequest.Paginated();
+					setState(setMuseumListingData(museums));
 				}
 			}
 		});
 	}
 
 	return (
-		<UpdateArtistProvider>
-			<UpdateArtistContext.Consumer>
+		<UpdateMuseumProvider>
+			<UpdateMuseumContext.Consumer>
 				{(update_context) => (
 					<React.Fragment>
-						<CreateArtistProvider>
-							<CreateArtistContext.Consumer>
+						<CreateMuseumProvider>
+							<CreateMuseumContext.Consumer>
 								{(create_context) => (
 									<React.Fragment>
-										<ReactModal style={customStyles} isOpen={create_context?.isOpen ?? false}>
-											<CreateArtistForm refresh={refresh} setRefresh={setRefresh} />
+										<ReactModal
+											appElement={document.getElementById("root") as HTMLElement}
+											style={customStyles}
+											isOpen={create_context?.isOpen ?? false}>
+											<CreateMuseumForm refresh={refresh} setRefresh={setRefresh} />
 										</ReactModal>
 										<React.Fragment>
-											<ReactModal style={customStyles} isOpen={update_context?.isReadyToUpdate != null}>
-												<UpdateArtistForm refresh={refresh} setRefresh={setRefresh} />
+											<ReactModal
+												appElement={document.getElementById("root") as HTMLElement}
+												style={customStyles}
+												isOpen={update_context?.isReadyToUpdate != null}>
+												<UpdateMuseumForm refresh={refresh} setRefresh={setRefresh} />
 											</ReactModal>
-											<ArtistPanelStyled>
+											<MuseumPanelStyled>
 												<div className="w-full flex justify-center items-center gap-[40px]">
-													<ArtistSearch />
 													<div className="create">
 														<button onClick={() => create_context?.setOpen(true)}>
 															<span>Add New</span>
@@ -134,24 +139,38 @@ export default function ArtistPanel() {
 														{data && data.items.length > 0 ? (
 															<React.Fragment>
 																<div className="listing">
-																	{data?.items.map((artist, index) => {
+																	{data?.items.map((museum, index) => {
 																		return (
-																			<div key={artist.slug + index} className="img_box">
-																				<img alt={artist.slug} src={artist.imageURL} />
+																			<div key={museum.slug + index} className="lista">
 																				<div className="info">
-																					<div className="flex justify-between">
-																						<button onClick={() => DeleteArtist(artist)}>
-																							<span>Delete</span>
-																						</button>
-																						<button
-																							onClick={() =>
-																								update_context?.setArtistId(artist.artistId)
-																							}>
-																							<span>Update</span>
-																						</button>
+																					<div>
+																						<div>
+																							<label htmlFor="">ID</label>
+																							<span>{museum.museumId}</span>
+																						</div>
+																						<div>
+																							<label htmlFor="">Name</label>
+																							<span>{museum.name}</span>
+																						</div>
+																						<div>
+																							<label htmlFor="">Country</label>
+																							<span>{museum.country}</span>
+																						</div>
 																					</div>
 																					<div>
-																						<h1>{artist.name}</h1>
+																						<button
+																							onClick={() =>
+																								update_context?.setMuseumId(museum.museumId)
+																							}>
+																							<span>
+																								<FaEdit />
+																							</span>
+																						</button>
+																						<button onClick={() => DeleteMuseum(museum)}>
+																							<span>
+																								<FaTrashAlt />
+																							</span>
+																						</button>
 																					</div>
 																				</div>
 																			</div>
@@ -189,15 +208,15 @@ export default function ArtistPanel() {
 														)}
 													</div>
 												</div>
-											</ArtistPanelStyled>
+											</MuseumPanelStyled>
 										</React.Fragment>
 									</React.Fragment>
 								)}
-							</CreateArtistContext.Consumer>
-						</CreateArtistProvider>
+							</CreateMuseumContext.Consumer>
+						</CreateMuseumProvider>
 					</React.Fragment>
 				)}
-			</UpdateArtistContext.Consumer>
-		</UpdateArtistProvider>
+			</UpdateMuseumContext.Consumer>
+		</UpdateMuseumProvider>
 	);
 }

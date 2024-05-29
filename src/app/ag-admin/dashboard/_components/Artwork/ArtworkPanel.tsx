@@ -1,7 +1,7 @@
 "use client";
 import Swal from "sweetalert2";
 import Modal from "react-modal";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
@@ -36,8 +36,18 @@ const customStyles = {
 
 export default function ArtworkPanel() {
 	const setState = useDispatch();
+	const [refresh, setRefresh] = useState<number>(0);
 	const { ref, inView } = useInView({ threshold: 1, initialInView: true });
 	const { data, fetching, error } = useSelector((s: RootState) => s.artworkListing);
+
+	useEffect(() => {
+		async function Refresh() {
+			const request = await ArtworkRequest.Paginated();
+			setState(setArtworkListingData(request));
+		}
+
+		Refresh();
+	}, [refresh]);
 
 	function DeleteArtwork(data: IPartialArtwork) {
 		Swal.fire({
@@ -99,15 +109,23 @@ export default function ArtworkPanel() {
 			<UpdateArtworkContext.Consumer>
 				{(update_context) => (
 					<React.Fragment>
-						<Modal preventScroll={true} style={customStyles} isOpen={update_context?.isReadyToUpdate != null}>
-							<UpdateArtworkForm />
+						<Modal
+							appElement={document.getElementById("root") as HTMLElement}
+							preventScroll={true}
+							style={customStyles}
+							isOpen={update_context?.isReadyToUpdate != null}>
+							<UpdateArtworkForm refresh={refresh} setRefresh={setRefresh} />
 						</Modal>
 						<CreateArtworkProvider>
 							<CreateArtworkContext.Consumer>
 								{(create_context) => (
 									<React.Fragment>
-										<Modal preventScroll={true} style={customStyles} isOpen={create_context?.isOpen ?? false}>
-											<CreateArtworkForm />
+										<Modal
+											appElement={document.getElementById("root") as HTMLElement}
+											preventScroll={true}
+											style={customStyles}
+											isOpen={create_context?.isOpen ?? false}>
+											<CreateArtworkForm refresh={refresh} setRefresh={setRefresh} />
 										</Modal>
 										<ArtworkPanelStyled>
 											<div className="w-full flex justify-center items-center gap-[40px]">

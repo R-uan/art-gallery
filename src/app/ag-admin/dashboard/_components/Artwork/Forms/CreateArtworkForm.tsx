@@ -1,5 +1,5 @@
 import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
-import { useRef, useState } from "react";
+import { SetStateAction, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { VscLoading } from "react-icons/vsc";
 import { useCreateArtwork } from "../Contexts/CreateArtworkContext";
@@ -16,7 +16,7 @@ type Inputs = {
 	history: string;
 };
 
-export default function CreateArtworkForm() {
+export default function CreateArtworkForm({ refresh, setRefresh }: { refresh: number; setRefresh: React.Dispatch<SetStateAction<number>> }) {
 	const artist = useRef<HTMLSelectElement>(null);
 	const museum = useRef<HTMLSelectElement>(null);
 	const [saving, setSavingStatus] = useState<boolean>(false);
@@ -33,9 +33,8 @@ export default function CreateArtworkForm() {
 			const artwork = { ...data, artistId, museumId };
 			const request = await ArtworkRequest.Post(artwork);
 			if (request) {
-				const artworks = await ArtworkRequest.Paginated();
-				const setState = useDispatch();
-				setState(setArtworkListingData(artworks));
+				setRefresh(refresh + 1);
+				setOpen(false);
 			}
 		} catch (error) {
 			if (error instanceof Error) setError(error.message);

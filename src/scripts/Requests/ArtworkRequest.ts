@@ -1,5 +1,5 @@
 import IPaginatedResponse from "@/interfaces/IPaginatedResponse";
-import { UpdateArtworkRequestBody } from "@/interfaces/Artwork/IUpdateArtworkRequestBody";
+import { IUpdateArtworkRequestBody } from "@/interfaces/Artwork/IUpdateArtworkRequestBody";
 import { config } from "dotenv";
 import public_instance from "../PublicInstance";
 import { IArtwork, IPartialArtwork } from "@/interfaces/Artwork/IArtwork";
@@ -25,12 +25,10 @@ export default class ArtworkRequest {
 		return response_body;
 	}
 
-	public static async Update(id: number, data: UpdateArtworkRequestBody): Promise<IArtwork> {
+	public static async Update(id: number, data: IUpdateArtworkRequestBody): Promise<boolean> {
 		const request = await public_instance.patch(`/artwork/${id}`, data);
-		if (request.status == 200) {
-			const response_body: IArtwork = request.data;
-			return response_body;
-		} else throw new Error(request.data);
+		if (request.status == 200) return true;
+		return false;
 	}
 
 	public static async Post(artwork: IPostArtworkRequestBody) {

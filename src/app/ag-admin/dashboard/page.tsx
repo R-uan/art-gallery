@@ -6,6 +6,7 @@ import styled from "styled-components";
 import ArtistPanel from "./_components/Artist/ArtistPanel";
 import { GalleryStore } from "@/app/_contexts/GalleryStore";
 import ArtworkPanel from "./_components/Artwork/ArtworkPanel";
+import MuseumPanel from "./_components/Museum/MuseumPanel";
 
 const MainStyled = styled.main`
 	width: 100%;
@@ -26,14 +27,18 @@ const HeaderStyled = styled.header`
 
 	& > div:first-child {
 		width: 100px;
-		height: 100%;
-		outline: 2px solid red;
+		display: flex;
+		span {
+			color: white;
+			line-height: 1;
+			font-size: 2rem;
+		}
 	}
 
 	& > nav {
 		display: flex;
-		align-items: center;
 		width: fit-content;
+		align-items: center;
 		height: fit-content;
 
 		& > ul {
@@ -62,9 +67,7 @@ export default function Dashboard() {
 		<Provider store={GalleryStore}>
 			<HeaderStyled>
 				<div>
-					<Link href={"/"}>
-						<span>Home</span>
-					</Link>
+					<span>{choice.name}</span>
 				</div>
 				<nav>
 					<ul>
@@ -83,7 +86,7 @@ export default function Dashboard() {
 							<button
 								onClick={() => {
 									setChoice({
-										name: "Artist",
+										name: "Artwork",
 										component: <ArtworkPanel />,
 									});
 								}}>
@@ -91,7 +94,15 @@ export default function Dashboard() {
 							</button>
 						</li>
 						<li>
-							<button>Museum</button>
+							<button
+								onClick={() => {
+									setChoice({
+										name: "Museum",
+										component: <MuseumPanel />,
+									});
+								}}>
+								Museum
+							</button>
 						</li>
 					</ul>
 				</nav>
@@ -106,7 +117,7 @@ export default function Dashboard() {
 					</ul>
 				</nav>
 			</HeaderStyled>
-			<MainStyled>{choice.component}</MainStyled>
+			<MainStyled id="root">{choice.component}</MainStyled>
 		</Provider>
 	);
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { VscLoading } from "react-icons/vsc";
 
@@ -19,7 +19,7 @@ type Inputs = {
 	profession: string | null;
 	imageURL: string | null;
 };
-export default function UpdateArtistForm() {
+export default function UpdateArtistForm({ refresh, setRefresh }: { refresh: number; setRefresh: React.Dispatch<SetStateAction<number>> }) {
 	const [updating, setUpdatingStatus] = useState<boolean>(false);
 	const { artist, isReadyToUpdate, error, setArtistId, setError } = useUpdateArtist();
 
@@ -44,10 +44,8 @@ export default function UpdateArtistForm() {
 				const update = { ...data };
 				const request = await ArtistRequest.Update(artist!.artistId, update);
 				if (request == true) {
+					setRefresh(refresh + 1);
 					setArtistId(null);
-					const artists = await ArtistRequest.Paginated();
-					const setState = useDispatch();
-					setState(setArtistListingData(artists));
 				}
 			} else setError("Unable to find artist ID.");
 		} catch (error) {

@@ -1,4 +1,4 @@
-export interface UpdateArtworkRequestBody {
+export interface IUpdateArtworkRequestBody {
 	slug: string | null;
 	title: string | null;
 	period: string | null;

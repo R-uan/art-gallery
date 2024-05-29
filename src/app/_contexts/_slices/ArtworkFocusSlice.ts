@@ -1,4 +1,4 @@
-import { IArtwork } from "@/interfaces/IArtwork";
+import { IArtwork } from "@/interfaces/Artwork/IArtwork";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IArtworkFocus {

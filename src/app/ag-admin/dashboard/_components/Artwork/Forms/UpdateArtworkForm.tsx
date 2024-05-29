@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { SetStateAction, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { VscLoading } from "react-icons/vsc";
 import { ArtworkFormStyled } from "./ArtworkFormStyled";
@@ -17,7 +17,7 @@ type Inputs = {
 	history: string | null;
 };
 
-export default function UpdateArtworkForm() {
+export default function UpdateArtworkForm({ refresh, setRefresh }: { refresh: number; setRefresh: React.Dispatch<SetStateAction<number>> }) {
 	const artist = useRef<HTMLSelectElement>(null);
 	const museum = useRef<HTMLSelectElement>(null);
 	const [updating, setUpdatingStatus] = useState<boolean>(false);
@@ -46,11 +46,9 @@ export default function UpdateArtworkForm() {
 					museumId: !Number.isNaN(museumId) ? museumId : null,
 				};
 				const request = await ArtworkRequest.Update(artwork!.artworkId, update);
-				if (request) {
+				if (request == true) {
+					setRefresh(refresh + 1);
 					setArtworkId(null);
-					const artworks = await ArtworkRequest.Paginated();
-					const setState = useDispatch();
-					setState(setArtworkListingData(artworks));
 				}
 			} else setError("Unable to find artwork ID.");
 		} catch (error) {

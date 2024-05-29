@@ -1,5 +1,5 @@
 import { IPartialArtist } from "../Artist/IArtist";
-import IMuseum from "../IMuseum";
+import IMuseum from "../Museum/IMuseum";
 
 export interface IArtwork {
 	artworkId: number;

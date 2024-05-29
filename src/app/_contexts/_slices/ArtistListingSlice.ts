@@ -1,5 +1,4 @@
 import { IPartialArtist } from "@/interfaces/Artist/IArtist";
-import { IPartialArtwork } from "@/interfaces/IArtwork";
 import IPaginatedResponse from "@/interfaces/IPaginatedResponse";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
