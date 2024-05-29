@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import s from "./ArtworkLocation.module.scss";
-import { RootState } from "@/app/_contexts/ArtworkStore";
+import { RootState } from "@/app/_contexts/GalleryStore";
+
 export default function ArtworkLocation() {
 	const { artwork } = useSelector((s: RootState) => s.artworkFocus);
 	const address = artwork?.museum;
@@ -21,10 +22,6 @@ export default function ArtworkLocation() {
 					</div>
 					<div>
 						<span>City</span>
-						<span>{address?.city ?? "???"}</span>
-					</div>
-					<div>
-						<span>Street</span>
 						<span>{address?.city ?? "???"}</span>
 					</div>
 				</div>

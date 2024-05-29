@@ -3,11 +3,11 @@ import s from "./Exibition.module.scss";
 import React, { useEffect } from "react";
 import Artwork from "../Artwork/Artwork";
 import { VscLoading } from "react-icons/vsc";
-import ArtworkRequest from "@/scripts/ArtworkRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { RootState } from "@/app/_contexts/ArtworkStore";
-import { setListingData, setListingError, setListingFetch } from "@/app/_contexts/_slices/ArtworkListingSlice";
+import { RootState } from "@/app/_contexts/GalleryStore";
+import { setArtworkListingData, setArtworkListingError, setArtworkListingFetch } from "@/app/_contexts/_slices/ArtworkListingSlice";
+import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
 
 export default function Exibition() {
 	const setState = useDispatch();
@@ -18,7 +18,7 @@ export default function Exibition() {
 		async function InitialQuery() {
 			try {
 				if (fetching == false && inView == true) {
-					setState(setListingFetch(true));
+					setState(setArtworkListingFetch(true));
 					let artworks = null;
 					if (data?.items.length == null) {
 						artworks = await ArtworkRequest.Paginated();
@@ -27,12 +27,12 @@ export default function Exibition() {
 						response.items = [...data.items, ...response.items];
 						artworks = response;
 					}
-					if (artworks != null) setState(setListingData(artworks));
+					if (artworks != null) setState(setArtworkListingData(artworks));
 				}
 			} catch (error) {
-				setState(setListingError(true));
+				setState(setArtworkListingError(true));
 			} finally {
-				setState(setListingFetch(false));
+				setState(setArtworkListingFetch(false));
 			}
 		}
 

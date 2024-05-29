@@ -1,6 +1,7 @@
+import { IPartialArtwork } from "@/interfaces/Artwork/IArtwork";
 import s from "./Artwork.module.scss";
 import { useRouter } from "next/navigation";
-import { IPartialArtwork } from "@/interfaces/IArtwork";
+
 export default function Artwork({ artwork }: { artwork: IPartialArtwork }) {
 	const router = useRouter();
 	return (

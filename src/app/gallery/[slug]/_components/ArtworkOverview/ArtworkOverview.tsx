@@ -1,5 +1,4 @@
 import { setFocusArtwork, setError, setFetching } from "@/app/_contexts/_slices/ArtworkFocusSlice";
-import ArtworkRequest from "@/scripts/ArtworkRequest";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { BsInstagram, BsTwitter } from "react-icons/bs";
@@ -8,6 +7,8 @@ import { useDispatch } from "react-redux";
 import FailedToFetch from "../ErrorArtwork";
 import LoadingArtwork from "../LoadingArtwork";
 import s from "./ArtworkOverview.module.scss";
+import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
+
 export default function ArtworkOverview({ slug }: { slug: string }) {
 	const setState = useDispatch();
 	const query_client = useQueryClient();
