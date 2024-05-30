@@ -42,10 +42,10 @@ export const HeaderStyled = styled.header<{ $transparent?: boolean; $position?: 
 		display: flex;
 	}
 
-	:after {
+	&:after {
 		left: 50%;
 		bottom: 0;
-		width: 92%;
+		width: 100%;
 		content: "";
 		height: 1px;
 		position: absolute;

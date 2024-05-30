@@ -2,38 +2,94 @@
 	gap: 50px;
 	width: 100%;
 	display: flex;
-	padding: 40px 70px;
 	position: relative;
 	height: fit-content;
 	flex-direction: column;
 
 	& > div:first-child {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
 		& > span {
-			line-height: 1.3;
+			width: fit-content;
 			font-size: 4vw;
+			line-height: 1.3;
 		}
 
 		& > p {
 			width: 50%;
 			line-height: 1.2;
 			font-size: 1.6vw;
+			text-align: center;
 		}
 	}
 
-	& > .featured {
-		gap: 5px;
+	& > div:nth-child(2) {
+		gap: 10px;
 		width: 100%;
+		height: 50vw;
+		padding: 15px;
 		display: flex;
-		height: fit-content;
-		justify-content: space-between;
+		position: relative;
+		justify-content: center;
+
+		& > div {
+			width: 25%s;
+			aspect-ratio: 2/3;
+			outline-offset: 2px;
+		}
+
+		.silly {
+			gap: 5px;
+			display: flex;
+			flex-direction: column;
+
+			.image {
+				aspect-ratio: 4/3;
+				width: 100%;
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+
+			.text {
+				gap: 15px;
+				display: flex;
+				flex-direction: column;
+				height: 40%;
+				padding: 5px;
+				flex: 1 1 0%;
+
+				h1 {
+					line-height: 1;
+					font-size: 2.5vw;
+				}
+
+				span {
+					font-size: 1.5vw;
+					line-height: 1;
+				}
+
+				p {
+					width: 95%;
+					text-wrap: wrap;
+					word-break: normal;
+					font-size: 1.3vw;
+				}
+			}
+		}
 	}
 
 	& > div:last-child {
 		gap: 50px;
 		width: 100%;
-		padding: 100px 0px;
+		padding: 0px 50px 100px 50px;
 		display: flex;
 		position: relative;
+		align-items: center;
 		flex-direction: column;
 
 		& > div:first-child {
@@ -44,24 +100,26 @@
 		}
 
 		& > div:last-child {
+			width: 90%;
 			& > ul {
 				width: 100%;
 				display: grid;
 				row-gap: 10px;
-				padding-left: 50px;
 				column-gap: 50px;
 				position: relative;
+				padding-left: 50px;
+				justify-content: space-between;
 				list-style: lower-roman;
 				grid-template-columns: repeat(3, 25%);
 				li {
-					width: 90%;
+					width: 95%;
 					line-height: 1;
 					color: #fefefe;
-					text-align: left;
+					text-align: center;
 					border-radius: 2px;
 					padding: 10px 20px;
 					transition: transform ease-in-out 0.2s;
-					font-size: clamp(0.8rem, 1.7vw, 1.7vw);
+					font-size: clamp(0.8rem, 1.5vw, 1.5vw);
 				}
 
 				li:hover {
