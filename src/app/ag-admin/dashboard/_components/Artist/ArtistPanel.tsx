@@ -33,7 +33,7 @@ const customStyles = {
 		backgroundColor: "#0000004f",
 	},
 };
-
+ReactModal.setAppElement("#root");
 export default function ArtistPanel() {
 	const setState = useDispatch();
 	const [refresh, setRefresh] = useState<number>(0);

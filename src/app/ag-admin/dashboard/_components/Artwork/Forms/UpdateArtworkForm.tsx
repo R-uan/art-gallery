@@ -1,12 +1,10 @@
 "use client";
-import { SetStateAction, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { VscLoading } from "react-icons/vsc";
-import { ArtworkFormStyled } from "./ArtworkFormStyled";
-import { SubmitHandler, useForm } from "react-hook-form";
 import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
+import { SetStateAction, useRef, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { VscLoading } from "react-icons/vsc";
 import { useUpdateArtwork } from "../Contexts/UpdateArtworkContext";
-import { setArtworkListingData } from "@/app/_contexts/_slices/ArtworkListingSlice";
+import { ArtworkFormStyled } from "./ArtworkFormStyled";
 
 type Inputs = {
 	title: string | null;

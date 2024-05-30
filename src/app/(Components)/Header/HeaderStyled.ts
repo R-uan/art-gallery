@@ -6,12 +6,11 @@ export const HeaderStyled = styled.header<{ $transparent?: boolean; $position?: 
 	z-index: 101;
 	height: 10vh;
 	display: flex;
-	position: ${(props) => (props.$position ? props.$position : "relative")};
 	align-items: center;
 	padding: 0 80px 0 80px;
-	justify-content: space-between;
 	background-color: transparent;
-	box-shadow: 0px 1px 10px 0px rgba(230, 217, 208, 0.3);
+	justify-content: space-between;
+	position: ${(props) => (props.$position ? props.$position : "relative")};
 
 	& > nav {
 		display: flex;
@@ -36,5 +35,21 @@ export const HeaderStyled = styled.header<{ $transparent?: boolean; $position?: 
 				transition: transform ease-in-out 0.2s;
 			}
 		}
+	}
+
+	.socials {
+		gap: 25px;
+		display: flex;
+	}
+
+	:after {
+		left: 50%;
+		bottom: 0;
+		width: 92%;
+		content: "";
+		height: 1px;
+		position: absolute;
+		transform: translateX(-50%);
+		background-color: white;
 	}
 `;

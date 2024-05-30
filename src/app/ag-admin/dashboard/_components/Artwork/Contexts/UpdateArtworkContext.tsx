@@ -1,6 +1,6 @@
 import { IPartialArtist } from "@/interfaces/Artist/IArtist";
 import { IArtwork } from "@/interfaces/Artwork/IArtwork";
-import { IPartialMuseum } from "@/interfaces/IMuseum";
+import { IPartialMuseum } from "@/interfaces/Museum/IMuseum";
 import ArtistRequest from "@/scripts/Requests/ArtistRequest";
 import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
 import MuseumRequest from "@/scripts/Requests/MuseumRequest";

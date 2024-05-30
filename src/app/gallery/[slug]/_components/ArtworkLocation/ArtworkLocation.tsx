@@ -18,7 +18,7 @@ export default function ArtworkLocation() {
 					</div>
 					<div>
 						<span>Estate</span>
-						<span>{address?.estate ?? "???"}</span>
+						<span>{address?.state ?? "???"}</span>
 					</div>
 					<div>
 						<span>City</span>

@@ -33,6 +33,7 @@ const customStyles = {
 		backgroundColor: "#0000004f",
 	},
 };
+ReactModal.setAppElement("#root");
 
 export default function MuseumPanel() {
 	const setState = useDispatch();
@@ -113,17 +114,11 @@ export default function MuseumPanel() {
 							<CreateMuseumContext.Consumer>
 								{(create_context) => (
 									<React.Fragment>
-										<ReactModal
-											appElement={document.getElementById("root") as HTMLElement}
-											style={customStyles}
-											isOpen={create_context?.isOpen ?? false}>
+										<ReactModal style={customStyles} isOpen={create_context?.isOpen ?? false}>
 											<CreateMuseumForm refresh={refresh} setRefresh={setRefresh} />
 										</ReactModal>
 										<React.Fragment>
-											<ReactModal
-												appElement={document.getElementById("root") as HTMLElement}
-												style={customStyles}
-												isOpen={update_context?.isReadyToUpdate != null}>
+											<ReactModal style={customStyles} isOpen={update_context?.isReadyToUpdate != null}>
 												<UpdateMuseumForm refresh={refresh} setRefresh={setRefresh} />
 											</ReactModal>
 											<MuseumPanelStyled>

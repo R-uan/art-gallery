@@ -1,5 +1,5 @@
 import { IPartialArtist } from "@/interfaces/Artist/IArtist";
-import { IPartialMuseum } from "@/interfaces/IMuseum";
+import { IPartialMuseum } from "@/interfaces/Museum/IMuseum";
 import ArtistRequest from "@/scripts/Requests/ArtistRequest";
 import MuseumRequest from "@/scripts/Requests/MuseumRequest";
 import { AxiosError } from "axios";

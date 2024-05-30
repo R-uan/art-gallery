@@ -48,16 +48,25 @@
 				width: 100%;
 				display: grid;
 				row-gap: 10px;
+				padding-left: 50px;
+				column-gap: 50px;
 				position: relative;
+				list-style: lower-roman;
 				grid-template-columns: repeat(3, 25%);
-
-				& li {
-					width: 100%;
+				li {
+					width: 90%;
 					line-height: 1;
 					color: #fefefe;
+					text-align: left;
 					border-radius: 2px;
 					padding: 10px 20px;
+					transition: transform ease-in-out 0.2s;
 					font-size: clamp(0.8rem, 1.7vw, 1.7vw);
+				}
+
+				li:hover {
+					transform: scale(1.2);
+					transition: transform ease-in-out 0.2s;
 				}
 			}
 		}

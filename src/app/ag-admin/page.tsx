@@ -5,15 +5,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import s from "./page.module.scss";
+import { Status } from "./Status";
 
 type Inputs = { username: string; password: string };
-
-export enum Status {
-	Error = "#F71735",
-	Neutral = "#dbd8d0",
-	Success = "#23CE6B",
-	Warning = "#FADF63",
-}
 
 const MessageBoxStyled = styled.div<{ $status: Status }>`
 	width: 70%;

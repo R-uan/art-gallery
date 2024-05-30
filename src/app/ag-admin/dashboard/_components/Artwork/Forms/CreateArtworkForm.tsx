@@ -4,8 +4,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { VscLoading } from "react-icons/vsc";
 import { useCreateArtwork } from "../Contexts/CreateArtworkContext";
 import { ArtworkFormStyled } from "./ArtworkFormStyled";
-import { useDispatch } from "react-redux";
-import { setArtworkListingData } from "@/app/_contexts/_slices/ArtworkListingSlice";
 
 type Inputs = {
 	title: string;

@@ -46,8 +46,8 @@ export default function ArtworkOverview({ slug }: { slug: string }) {
 							<hr />
 							<div className={s.history}>
 								<span className="font-bebas">History</span>
-								{data?.history.split("@").map((part) => {
-									return <p>{part}</p>;
+								{data?.history.split("@").map((part, index) => {
+									return <p key={index + part[0]}>{part}</p>;
 								})}
 							</div>
 							<div>

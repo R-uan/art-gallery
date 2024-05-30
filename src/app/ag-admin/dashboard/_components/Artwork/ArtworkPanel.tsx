@@ -15,6 +15,7 @@ import { setArtworkListingData, setArtworkListingError, setArtworkListingFetch }
 import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
 import UpdateArtworkProvider, { UpdateArtworkContext } from "./Contexts/UpdateArtworkContext";
 import CreateArtworkProvider, { CreateArtworkContext } from "./Contexts/CreateArtworkContext";
+import ReactModal from "react-modal";
 
 const customStyles = {
 	content: {
@@ -33,6 +34,7 @@ const customStyles = {
 		backgroundColor: "#0000004f",
 	},
 };
+ReactModal.setAppElement("#root");
 
 export default function ArtworkPanel() {
 	const setState = useDispatch();
@@ -109,24 +111,16 @@ export default function ArtworkPanel() {
 			<UpdateArtworkContext.Consumer>
 				{(update_context) => (
 					<React.Fragment>
-						<Modal
-							appElement={document.getElementById("root") as HTMLElement}
-							preventScroll={true}
-							style={customStyles}
-							isOpen={update_context?.isReadyToUpdate != null}>
+						<ReactModal preventScroll={true} style={customStyles} isOpen={update_context?.isReadyToUpdate != null}>
 							<UpdateArtworkForm refresh={refresh} setRefresh={setRefresh} />
-						</Modal>
+						</ReactModal>
 						<CreateArtworkProvider>
 							<CreateArtworkContext.Consumer>
 								{(create_context) => (
 									<React.Fragment>
-										<Modal
-											appElement={document.getElementById("root") as HTMLElement}
-											preventScroll={true}
-											style={customStyles}
-											isOpen={create_context?.isOpen ?? false}>
+										<ReactModal preventScroll={true} style={customStyles} isOpen={create_context?.isOpen ?? false}>
 											<CreateArtworkForm refresh={refresh} setRefresh={setRefresh} />
-										</Modal>
+										</ReactModal>
 										<ArtworkPanelStyled>
 											<div className="w-full flex justify-center items-center gap-[40px]">
 												<ArtworkFilter />
