@@ -1,15 +1,16 @@
 "use client";
-import s from "./Exibition.module.scss";
-import React, { useEffect } from "react";
-import Artwork from "../Artwork/Artwork";
-import { VscLoading } from "react-icons/vsc";
-import { useDispatch, useSelector } from "react-redux";
-import { useInView } from "react-intersection-observer";
 import { RootState } from "@/app/_contexts/GalleryStore";
 import { setArtworkListingData, setArtworkListingError, setArtworkListingFetch } from "@/app/_contexts/_slices/ArtworkListingSlice";
 import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import { VscLoading } from "react-icons/vsc";
+import { useInView } from "react-intersection-observer";
+import { useDispatch, useSelector } from "react-redux";
+import s from "./Exibition.module.scss";
 
 export default function Exibition() {
+	const router = useRouter();
 	const setState = useDispatch();
 	const { ref, inView } = useInView({ threshold: 1, initialInView: true });
 	const { data, fetching, error } = useSelector((s: RootState) => s.artworkListing);
@@ -43,7 +44,18 @@ export default function Exibition() {
 		<React.Fragment>
 			<div className={s.exposition}>
 				{data.items.map((artwork) => {
-					return <Artwork key={artwork.slug} artwork={artwork} />;
+					return (
+						<div className={s.img_box} onClick={() => router.push(`/gallery/${artwork.slug}`)}>
+							<img alt={artwork.title} src={artwork.imageURL} />
+							<div className={s.info}>
+								<div></div>
+								<div>
+									<h1>{artwork.title}</h1>
+									<h3>{artwork.artist}</h3>
+								</div>
+							</div>
+						</div>
+					);
 				})}
 			</div>
 			{data.hasNextPage ? (

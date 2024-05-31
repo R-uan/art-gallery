@@ -1,55 +1,90 @@
 .artwork {
 	gap: 10px;
 	width: 100%;
-	height: 85vh;
-	margin-top: 70px;
+	height: 90vh;
 	display: flex;
-	justify-content: center;
+	padding-left: 20px;
+	padding-right: 20px;
+	align-items: center;
+	justify-content: flex-end;
 
 	& > div {
 		gap: 20px;
-		width: 80%;
+		width: 100%;
 		height: 100%;
 		display: flex;
 
 		.image {
-			width: 23vw;
-			aspect-ratio: 2/3;
-			height: fit-content;
-			border-radius: 6px;
+			height: 100%;
+			display: flex;
+			aspect-ratio: 3/4;
+			align-items: center;
+			justify-content: center;
+
 			img {
-				width: 100%;
-				object-fit: fill;
-				border-radius: 6px;
+				height: 100%;
+				object-fit: cover;
 			}
 		}
 
 		.right_panel {
 			color: white;
 			gap: 20px;
-			width: 50vw;
-			flex: 1 1 0%;
+			width: 60vw;
 			display: flex;
 			padding: 10px;
 			flex-direction: column;
 
 			.overview {
-				gap: 20px;
+				gap: 50px;
 				display: flex;
 				flex-direction: column;
+
+				& > div:first-child {
+					& > div:first-child {
+						gap: 10px;
+						width: 100%;
+						display: flex;
+						margin-top: 20px;
+						position: relative;
+						height: fit-content;
+						justify-content: space-between;
+
+						span {
+							line-height: 2;
+							font-size: 2vw;
+						}
+					}
+
+					& > div:first-child::before {
+						left: 50%;
+						top: 0;
+						width: 100%;
+						content: "";
+						height: 1px;
+						position: absolute;
+						transform: translateX(-50%);
+						background-color: white;
+					}
+
+					& > div:first-child::after {
+						left: 50%;
+						bottom: 0;
+						width: 100%;
+						content: "";
+						height: 1px;
+						position: absolute;
+						transform: translateX(-50%);
+						background-color: white;
+					}
+				}
 
 				& > div:first-child {
 					.title {
 						color: #bba58f;
 						display: block;
 						line-height: 1.2;
-						font-size: 2.75rem;
-					}
-
-					.author {
-						display: block;
-						line-height: 1.2;
-						font-size: 1.75rem;
+						font-size: 4vw;
 					}
 				}
 
@@ -69,14 +104,9 @@
 					max-height: 350px;
 					flex-direction: column;
 
-					span {
-						font-size: 1.2rem;
-						line-height: 1;
-					}
-
 					p {
 						width: 100%;
-						font-size: 1.11rem;
+						font-size: 1.35vw;
 					}
 				}
 			}

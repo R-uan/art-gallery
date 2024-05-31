@@ -8,6 +8,7 @@ import FailedToFetch from "../ErrorArtwork";
 import LoadingArtwork from "../LoadingArtwork";
 import s from "./ArtworkOverview.module.scss";
 import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
+import { VscLoading } from "react-icons/vsc";
 
 export default function ArtworkOverview({ slug }: { slug: string }) {
 	const setState = useDispatch();
@@ -34,27 +35,34 @@ export default function ArtworkOverview({ slug }: { slug: string }) {
 				</div>
 				<div className={s.right_panel}>
 					{isFetching ? (
-						<LoadingArtwork />
+						<div className="w-full h-full flex items-center justify-center">
+							<span className="h-fit w-fit">
+								<VscLoading className="animate-spin" />
+							</span>
+						</div>
 					) : error ? (
 						<FailedToFetch message={error.message || "Failed to fetch artwork."} />
 					) : (
 						<div className={s.overview}>
 							<div>
+								<div>
+									<div>
+										<span className={s.author}>{data?.artist.name}</span>
+									</div>
+									<div className="flex gap-[15px]">
+										<span className={s.period}>{data?.period}</span>
+										<span>-</span>
+										<span className={s.year}>{data?.year}</span>
+									</div>
+								</div>
 								<span className={s.title}>{data?.title}</span>
-								<span className={s.author}>{data?.artist.name}</span>
 							</div>
-							<hr />
 							<div className={s.history}>
-								<span className="font-bebas">History</span>
 								{data?.history.split("@").map((part, index) => {
 									return <p key={index + part[0]}>{part}</p>;
 								})}
 							</div>
-							<div>
-								<span className={s.period}>{data?.period}</span>
-								<span>-</span>
-								<span className={s.year}>{data?.year}</span>
-							</div>
+							<div></div>
 						</div>
 					)}
 					<div className={s.share}>
