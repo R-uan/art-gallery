@@ -38,6 +38,7 @@ export default function UpdateArtworkForm({ refresh, setRefresh }: { refresh: nu
 				setUpdatingStatus(true);
 				const artistId = artist.current ? parseInt(artist.current.value) : null;
 				const museumId = museum.current ? parseInt(museum.current.value) : null;
+				if (data.slug) data.slug = data.slug.split(" ").join("-").toLowerCase();
 				const update = {
 					...data,
 					artistId: !Number.isNaN(artistId) ? artistId : null,
@@ -85,11 +86,11 @@ export default function UpdateArtworkForm({ refresh, setRefresh }: { refresh: nu
 							<form action="post" onSubmit={handleSubmit(onSubmit)}>
 								<div className="flex gap-[10px]">
 									<div className="flex flex-col gap-[10px]">
-										<input {...register("title")} type="text" placeholder="Title" />
-										<input {...register("slug")} type="text" placeholder="Slug" />
+										<input {...register("title")} type="text" placeholder="Title" required />
+										<input {...register("slug")} type="text" placeholder="Slug" required />
 										<input {...register("year")} type="text" placeholder="Year" />
-										<input {...register("period")} type="text" placeholder="Period" />
-										<input {...register("imageURL")} type="text" placeholder="Image URL" />
+										<input {...register("period")} type="text" placeholder="Period" required />
+										<input {...register("imageURL")} type="text" placeholder="Image URL" required />
 										<select ref={artist} name="artist" id="artist">
 											<option>Artist</option>
 											{artists?.map((artist, index) => {

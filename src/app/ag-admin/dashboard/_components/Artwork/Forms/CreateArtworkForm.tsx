@@ -28,6 +28,7 @@ export default function CreateArtworkForm({ refresh, setRefresh }: { refresh: nu
 			setSavingStatus(true);
 			const artistId = artist.current ? parseInt(artist.current.value) : 0;
 			const museumId = museum.current ? parseInt(museum.current.value) : 0;
+			data.slug = data.slug.split(" ").join("-").toLowerCase();
 			const artwork = { ...data, artistId, museumId };
 			const request = await ArtworkRequest.Post(artwork);
 			if (request) {

@@ -3,9 +3,11 @@ $font_size: 1.4rem;
 
 .filter {
 	height: 7vh;
+	width: fit-content;
 	display: flex;
 	position: relative;
-	padding: 10px 10px 0 10px;
+	align-items: center;
+	justify-content: center;
 
 	& > form {
 		gap: 10px;

@@ -13,6 +13,12 @@ export default class ArtworkRequest {
 		return response_body;
 	}
 
+	public static async QuerySearch(params: string) {
+		const request = await public_instance.get(`/artwork/q?${params}`);
+		const response_body: IPaginatedResponse<IPartialArtwork> = request.data;
+		return response_body;
+	}
+
 	public static async GetArtworkBySlug(slug: string) {
 		const request = await public_instance.get(`/artwork/${slug}`);
 		const response_body: IArtwork = request.data;

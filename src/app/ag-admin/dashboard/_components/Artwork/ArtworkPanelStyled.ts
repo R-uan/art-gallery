@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const ArtworkPanelStyled = styled.div`
-	gap: 20px;
 	flex-grow: 1;
 	height: 100%;
 	display: flex;
@@ -33,10 +32,21 @@ export const ArtworkPanelStyled = styled.div`
 		}
 	}
 
+	.search {
+		gap: 20px;
+		height: 10vh;
+		display: flex;
+		overflow: hidden;
+		align-items: center;
+		justify-content: center;
+	}
+
 	.create {
-		height: 35px;
-		width: 170px;
+		width: 15%;
+		display: flex;
+		align-items: center;
 		background-color: red;
+		justify-content: center;
 		button {
 			height: 100%;
 			padding: 5px 0;

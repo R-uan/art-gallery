@@ -12,8 +12,10 @@ export default function Gallery() {
 		<Provider store={GalleryStore}>
 			<Header transparent={false} position="absolute" />
 			<main className={s.gallery}>
-				<div className={s.header}></div>
-				<ArtworkFilter />
+				<div className={s.header} />
+				<div className="flex items-center justify-center w-full h-[20vh]">
+					<ArtworkFilter />
+				</div>
 				<Exibition />
 			</main>
 			<Footer />

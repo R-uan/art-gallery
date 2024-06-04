@@ -28,6 +28,7 @@ export default function Exibition() {
 						response.items = [...data.items, ...response.items];
 						artworks = response;
 					}
+					console.log(artworks);
 					if (artworks != null) setState(setArtworkListingData(artworks));
 				}
 			} catch (error) {
@@ -43,9 +44,9 @@ export default function Exibition() {
 	return data && data.items.length > 0 ? (
 		<React.Fragment>
 			<div className={s.exposition}>
-				{data.items.map((artwork) => {
+				{data.items.map((artwork, index) => {
 					return (
-						<div className={s.img_box} onClick={() => router.push(`/gallery/${artwork.slug}`)}>
+						<div key={artwork.slug + index} className={s.img_box} onClick={() => router.push(`/gallery/${artwork.slug}`)}>
 							<img alt={artwork.title} src={artwork.imageURL} />
 							<div className={s.info}>
 								<div></div>

@@ -5,7 +5,6 @@
 	display: grid;
 	margin: 5px 5px;
 	column-gap: 10px;
-	aspect-ratio: 3/2;
 	height: fit-content;
 	justify-content: center;
 	grid-template-columns: repeat(5, 20%);
@@ -13,6 +12,7 @@
 
 .img_box {
 	width: 100%;
+	aspect-ratio: 3/4;
 	position: relative;
 	margin-bottom: 10px;
 	break-inside: avoid;

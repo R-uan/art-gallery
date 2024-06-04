@@ -1,21 +1,20 @@
 "use client";
-import Swal from "sweetalert2";
-import Modal from "react-modal";
+import { setArtworkListingData, setArtworkListingError, setArtworkListingFetch } from "@/app/_contexts/_slices/ArtworkListingSlice";
+import { RootState } from "@/app/_contexts/GalleryStore";
+import ArtworkFilter from "@/app/gallery/_components/Filter/ArtworkFilter";
+import { IPartialArtwork } from "@/interfaces/Artwork/IArtwork";
+import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
 import React, { useEffect, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
-import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { RootState } from "@/app/_contexts/GalleryStore";
+import ReactModal from "react-modal";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { ArtworkPanelStyled } from "./ArtworkPanelStyled";
+import CreateArtworkProvider, { CreateArtworkContext } from "./Contexts/CreateArtworkContext";
+import UpdateArtworkProvider, { UpdateArtworkContext } from "./Contexts/UpdateArtworkContext";
 import CreateArtworkForm from "./Forms/CreateArtworkForm";
 import UpdateArtworkForm from "./Forms/UpdateArtworkForm";
-import { ArtworkPanelStyled } from "./ArtworkPanelStyled";
-import { IPartialArtwork } from "@/interfaces/Artwork/IArtwork";
-import ArtworkFilter from "@/app/gallery/_components/Filter/ArtworkFilter";
-import { setArtworkListingData, setArtworkListingError, setArtworkListingFetch } from "@/app/_contexts/_slices/ArtworkListingSlice";
-import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
-import UpdateArtworkProvider, { UpdateArtworkContext } from "./Contexts/UpdateArtworkContext";
-import CreateArtworkProvider, { CreateArtworkContext } from "./Contexts/CreateArtworkContext";
-import ReactModal from "react-modal";
 
 const customStyles = {
 	content: {
@@ -122,7 +121,7 @@ export default function ArtworkPanel() {
 											<CreateArtworkForm refresh={refresh} setRefresh={setRefresh} />
 										</ReactModal>
 										<ArtworkPanelStyled>
-											<div className="w-full flex justify-center items-center gap-[40px]">
+											<div className="search">
 												<ArtworkFilter />
 												<div className="create">
 													<button onClick={() => create_context?.setOpen(true)}>

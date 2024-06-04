@@ -45,7 +45,7 @@ export const HeaderStyled = styled.header<{ $transparent?: boolean; $position?: 
 	&:after {
 		left: 50%;
 		bottom: 0;
-		width: 100%;
+		width: 90%;
 		content: "";
 		height: 1px;
 		position: absolute;
