@@ -2,23 +2,55 @@
 import { RootState } from "@/app/_contexts/GalleryStore";
 import { setArtworkListingData, setArtworkListingError, setArtworkListingFetch } from "@/app/_contexts/_slices/ArtworkListingSlice";
 import ArtworkRequest from "@/scripts/Requests/ArtworkRequest";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { VscLoading } from "react-icons/vsc";
 import { useInView } from "react-intersection-observer";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./Exibition.module.scss";
+import UrlQueryBuilder from "@/scripts/UrlQueryBuilder";
 
 export default function Exibition() {
 	const router = useRouter();
 	const setState = useDispatch();
+	const search_params = useSearchParams();
+	const [initialFetch, setInitialFetch] = useState<boolean>(true);
 	const { ref, inView } = useInView({ threshold: 1, initialInView: true });
 	const { data, fetching, error } = useSelector((s: RootState) => s.artworkListing);
 
 	useEffect(() => {
+		async function Query() {
+			if (initialFetch == true) {
+				const queryBuilder = new UrlQueryBuilder();
+				const title = search_params.get("title");
+				const period = search_params.get("period");
+				const artist = search_params.get("artist");
+				if (period != null) queryBuilder.addFilter("period", period);
+				if (title != null) queryBuilder.addFilter("title", title);
+				if (artist != null) queryBuilder.addFilter("artist", artist);
+				const query = queryBuilder.build();
+				try {
+					setState(setArtworkListingFetch(true));
+					let artworks = null;
+					if (query != null) artworks = await ArtworkRequest.QuerySearch(query);
+					else artworks = await ArtworkRequest.Paginated();
+					if (artworks) setState(setArtworkListingData(artworks));
+				} catch (error) {
+					setState(setArtworkListingError(true));
+				} finally {
+					setInitialFetch(false);
+					setState(setArtworkListingFetch(false));
+				}
+			}
+		}
+
+		Query();
+	}, []);
+
+	useEffect(() => {
 		async function InitialQuery() {
 			try {
-				if (fetching == false && inView == true) {
+				if (fetching == false && inView == true && initialFetch == false) {
 					setState(setArtworkListingFetch(true));
 					let artworks = null;
 					if (data?.items.length == null) {
@@ -28,7 +60,6 @@ export default function Exibition() {
 						response.items = [...data.items, ...response.items];
 						artworks = response;
 					}
-					console.log(artworks);
 					if (artworks != null) setState(setArtworkListingData(artworks));
 				}
 			} catch (error) {
